@@ -4,6 +4,8 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Basic Chinese Learning Guide</title>
+    <!-- Link to PWA Manifest (adjust path if needed for your GitHub Pages setup) -->
+    <link rel="manifest" href="/china-guide/manifest.json">
     <style>
         body {
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
@@ -114,6 +116,57 @@
         .notes h3 {
             color: #c53030;
             margin-top: 0;
+        }
+        /* New styles for Gemini integration section */
+        .gemini-section {
+            background: #e0f7fa; /* Light blue background */
+            border: 2px solid #00bcd4; /* Cyan border */
+            border-radius: 15px;
+            padding: 30px;
+            box-shadow: 0 10px 20px rgba(0,0,0,0.08);
+            margin-top: 40px;
+        }
+        .gemini-section h2 {
+            color: #00796b; /* Darker cyan */
+            border-bottom-color: #00bcd4;
+        }
+        .gemini-section textarea {
+            width: 100%;
+            padding: 12px;
+            border: 1px solid #b2ebf2; /* Lighter cyan border */
+            border-radius: 8px;
+            font-size: 1em;
+            resize: vertical;
+            min-height: 80px;
+            box-sizing: border-box; /* Include padding and border in the element's total width and height */
+        }
+        .gemini-section button {
+            background: #00bcd4; /* Cyan button */
+            color: white;
+            padding: 12px 25px;
+            border: none;
+            border-radius: 8px;
+            font-size: 1.1em;
+            cursor: pointer;
+            width: 100%;
+            transition: background 0.3s ease;
+            margin-top: 15px;
+        }
+        .gemini-section button:hover {
+            background: #0097a7; /* Darker cyan on hover */
+        }
+        .loading-indicator {
+            text-align: center;
+            margin-top: 20px;
+            font-size: 1.1em;
+            color: #00796b;
+            font-weight: bold;
+        }
+        .generated-phrases-grid {
+            margin-top: 20px;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 20px;
         }
     </style>
 </head>
@@ -258,11 +311,31 @@
             </div>
         </div>
 
+        <!-- NEW SECTION: Gemini Powered Phrase Generation -->
+        <div class="gemini-section">
+            <h2>✨ Get Phrases for Any Situation ✨</h2>
+            <p class="text-gray-600 mb-4">Describe a situation you might encounter in China, and I'll generate some useful Chinese phrases for you!</p>
+
+            <div class="mb-4">
+                <textarea id="situationInput" placeholder="e.g., Ordering coffee at a cafe, asking for directions to the train station, checking into a hotel..."></textarea>
+            </div>
+            <button id="generatePhrasesButton">Generate Phrases</button>
+
+            <div id="loadingIndicator" class="loading-indicator" style="display: none;">
+                Generating phrases... please wait.
+            </div>
+
+            <div id="generatedPhrasesOutput" class="generated-phrases-grid">
+                <!-- Generated phrases will be displayed here -->
+            </div>
+        </div>
+        <!-- END NEW SECTION -->
+
         <h2>🎵 Mastering Chinese Tones</h2>
         <div class="notes">
             <h3>🎼 The Four Tones Explained</h3>
             <p><strong>1st Tone (ˉ):</strong> High and flat - like singing a high note</p>
-            <p><strong>2nd Tone (ˊ):</strong> Rising - like asking "what?" in English</p>
+            <p><strong>2nd Tone (ˊ):</b> Rising - like asking "what?" in English</p>
             <p><strong>3rd Tone (ˇ):</strong> Falling then rising - like "oh" when you realize something</p>
             <p><strong>4th Tone (ˋ):</strong> Sharp falling - like a firm "no!"</p>
             <p><strong>Neutral Tone:</strong> Light and quick - unstressed</p>
@@ -352,28 +425,15 @@
             </div>
         </div>
 
-        <div class="notes">
-            <h3>🎯 Tone Practice Tips</h3>
-            <p><strong>Listen and repeat:</strong> Play each tone multiple times and try to mimic the pitch pattern.</p>
-            <p><strong>Use your hand:</strong> Move your hand to follow the tone pattern - flat for 1st, rising for 2nd, dip-rise for 3rd, falling for 4th.</p>
-            <p><strong>Practice pairs:</strong> Focus on distinguishing between tones that sound similar to you.</p>
-            <p><strong>Record yourself:</strong> Use your phone to record yourself saying the tones, then compare with the audio.</p>
-            <p><strong>Don't worry about perfection:</strong> Even slight tone errors are usually understood in context!</p>
-        </div>
-
-        <div class="notes">
-            <h3>🎯 Study Tips</h3>
-            <p><strong>Tones are crucial!</strong> Mandarin has 4 main tones plus a neutral tone. The same sound with different tones can mean completely different things.</p>
-            <p><strong>Practice daily:</strong> Try to use these phrases in context. Even 10 minutes daily will help significantly.</p>
-            <p><strong>Mobile apps:</strong> Consider downloading apps like Pleco (dictionary) or HelloChinese for additional practice.</p>
-            <p><strong>Cultural note:</strong> Chinese people are generally very patient and appreciative when foreigners attempt to speak Chinese, even imperfectly!</p>
-        </div>
     </div>
 
     <script>
         let isMobileApp = false;
 
         function speak(text, lang) {
+            // Log this line FIRST to confirm the function is being called
+            console.log("speakText called with:", text, lang);
+
             // Try speechSynthesis first (works on desktop)
             if (typeof speechSynthesis !== 'undefined' && speechSynthesis) {
                 try {
@@ -391,12 +451,37 @@
                     
                     if (chineseVoice) {
                         utterance.voice = chineseVoice;
+                        console.log("Using voice:", chineseVoice.name);
+                    } else {
+                        console.warn("No specific Chinese voice ('zh-CN') found. Using default voice for language, which may vary or be absent.");
+                        // Only show the message box if the voices have had a chance to load
+                        if (speechSynthesis.getVoices().length > 0) {
+                            showMessageBox("No Chinese Voice Found", "No Chinese voice found on your system/browser. Audio may not play or may use a generic voice. Please check your browser's language settings.");
+                        }
                     }
                     
+                    utterance.onstart = () => console.log('Speech started for:', text);
+                    utterance.onend = () => console.log('Speech finished for:', text);
+                    utterance.onerror = (event) => {
+                        console.error('Speech synthesis error:', event.error, event);
+                        let errorMessage = `Failed to play audio for "${text}". Error: ${event.error}.`;
+                        if (event.error === 'network') {
+                            errorMessage += " This might be a network issue or missing language data.";
+                        } else if (event.error === 'synthesis-failed') {
+                            errorMessage += " The browser's speech synthesis failed. Ensure a Chinese voice is installed and enabled in your OS/browser settings.";
+                        } else if (event.error === 'not-allowed') {
+                            errorMessage += " Audio playback might be blocked by your browser's autoplay policy. Try interacting with the page more, or check browser settings.";
+                        } else if (event.error === 'voice-unavailable') {
+                            errorMessage += " A suitable Chinese voice is not available. Please check your browser's language settings or install a Chinese language pack for your operating system.";
+                        }
+                        showMessageBox("Audio Playback Error", errorMessage + " Please consider trying a different browser (e.g., Chrome, Edge) or checking your system's language settings.", true);
+                    };
+
                     speechSynthesis.speak(utterance);
                     return;
                 } catch (error) {
-                    console.log('speechSynthesis failed');
+                    console.log('speechSynthesis failed:', error);
+                    showMessageBox("Audio Playback Issue", "There was an issue with audio playback via Web Speech API. Falling back to mobile mode.", true);
                 }
             }
 
@@ -529,6 +614,29 @@
             }, 2000);
         }
 
+        // Custom Message Box (replacing alert() and window.alert())
+        function showMessageBox(title, message, isError = false) {
+            let messageBox = document.getElementById('customMessageBox');
+            if (!messageBox) {
+                messageBox = document.createElement('div');
+                messageBox.id = 'customMessageBox';
+                messageBox.className = 'fixed inset-0 bg-gray-600 bg-opacity-50 flex items-center justify-center p-4 z-50';
+                messageBox.innerHTML = `
+                    <div class="bg-white rounded-lg shadow-xl p-6 w-full max-w-sm">
+                        <h3 id="messageBoxTitle" class="text-xl font-bold mb-4 ${isError ? 'text-red-700' : 'text-blue-700'}"></h3>
+                        <p id="messageBoxContent" class="text-gray-700 mb-6"></p>
+                        <button id="messageBoxClose" class="w-full bg-blue-500 hover:bg-blue-600 text-white font-bold py-2 px-4 rounded-lg">Close</button>
+                    </div>
+                `;
+                document.body.appendChild(messageBox);
+                document.getElementById('messageBoxClose').onclick = () => messageBox.classList.add('hidden');
+            }
+            document.getElementById('messageBoxTitle').textContent = title;
+            document.getElementById('messageBoxContent').textContent = message;
+            messageBox.classList.remove('hidden');
+        }
+
+
         // Enhanced CSS animations
         const style = document.createElement('style');
         style.textContent = `
@@ -582,7 +690,8 @@
                     <p>🔹 Or use any Chinese dictionary app with TTS</p>
                     <p><em>This gives you the same pronunciation practice on-the-go!</em></p>
                 `;
-                container.insertBefore(mobileNotice, container.firstChild.nextSibling);
+                // Insert after the first child (h1) to keep it near the top
+                container.insertBefore(mobileNotice, container.children[1]);
             }
         });
 
@@ -592,6 +701,108 @@
                 // Voices loaded
             };
         }
+
+        // --- Gemini API Integration Logic ---
+        document.getElementById('generatePhrasesButton').addEventListener('click', async () => {
+            const situation = document.getElementById('situationInput').value.trim();
+            const outputDiv = document.getElementById('generatedPhrasesOutput');
+            const loadingIndicator = document.getElementById('loadingIndicator');
+
+            if (!situation) {
+                outputDiv.innerHTML = '<p style="color: #c53030; text-align: center;">Please describe a situation to generate phrases.</p>';
+                return;
+            }
+
+            // Show loading indicator and clear previous output
+            loadingIndicator.style.display = 'block'; // Show loading
+            outputDiv.innerHTML = ''; // Clear previous results
+            
+            try {
+                // Prepare the prompt for the LLM
+                let chatHistory = [];
+                const prompt = `Generate 3 to 5 common Chinese phrases for a traveler who is "${situation}". Provide the Chinese characters, Pinyin with tone marks, and English meaning for each phrase. Format the response as a JSON array of objects, where each object has 'chinesePhrase', 'pinyin', and 'englishMeaning' fields. Ensure pinyin includes tone marks (e.g., nǐ hǎo, xièxie).`;
+                chatHistory.push({ role: "user", parts: [{ text: prompt }] });
+
+                // Define the payload with the structured response schema
+                const payload = {
+                    contents: chatHistory,
+                    generationConfig: {
+                        responseMimeType: "application/json",
+                        responseSchema: {
+                            type: "ARRAY",
+                            items: {
+                                type: "OBJECT",
+                                properties: {
+                                    "chinesePhrase": { "type": "STRING" },
+                                    "pinyin": { "type": "STRING" },
+                                    "englishMeaning": { "type": "STRING" }
+                                },
+                                "required": ["chinesePhrase", "pinyin", "englishMeaning"]
+                            }
+                        }
+                    }
+                };
+
+                // IMPORTANT: Replace "" with your actual Gemini API key for deployment!
+                const apiKey = "AIzaSyAN6xQKZY37wPXc4xfe1IlOgNOGh5wCd9g"; 
+                const apiUrl = `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash:generateContent?key=${apiKey}`;
+
+                const response = await fetch(apiUrl, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify(payload)
+                });
+
+                if (!response.ok) {
+                    const errorData = await response.json();
+                    console.error('API Error:', errorData);
+                    outputDiv.innerHTML = `<p style="color: #c53030; text-align: center;">Error generating phrases: ${errorData.error.message || 'Unknown error'}</p>`;
+                    return;
+                }
+
+                const result = await response.json();
+
+                // Check if the response structure is valid
+                if (result.candidates && result.candidates.length > 0 &&
+                    result.candidates[0].content && result.candidates[0].content.parts &&
+                    result.candidates[0].content.parts.length > 0) {
+                    
+                    const jsonString = result.candidates[0].content.parts[0].text;
+                    let generatedPhrases = [];
+                    try {
+                        generatedPhrases = JSON.parse(jsonString);
+                    } catch (parseError) {
+                        console.error('Failed to parse JSON from LLM:', parseError);
+                        console.log('Raw LLM response:', jsonString); // Log raw response for debugging
+                        outputDiv.innerHTML = '<p style="color: #c53030; text-align: center;">Could not understand the generated phrases. Please try again or refine your request.</p>';
+                        return;
+                    }
+
+                    if (generatedPhrases.length > 0) {
+                        generatedPhrases.forEach(phrase => {
+                            const phraseItem = document.createElement('div');
+                            phraseItem.className = 'card phrase-card'; // Reuse existing card styles
+                            phraseItem.innerHTML = `
+                                <button class="play-btn" onclick="speak('${phrase.pinyin.replace(/'/g, "\\'")}', 'zh-CN')">🔊</button>
+                                <div class="phrase-chinese">${phrase.chinesePhrase}</div>
+                                <div class="pinyin">${phrase.pinyin}</div>
+                                <div class="english">${phrase.englishMeaning}</div>
+                            `;
+                            outputDiv.appendChild(phraseItem);
+                        });
+                    } else {
+                        outputDiv.innerHTML = '<p style="color: #4a5568; text-align: center;">No phrases were generated for this situation. Please try a different description.</p>';
+                    }
+                } else {
+                    outputDiv.innerHTML = '<p style="color: #c53030; text-align: center;">Failed to get a valid response from the AI. Please try again.</p>';
+                }
+            } catch (error) {
+                console.error("An unexpected error occurred:", error);
+                outputDiv.innerHTML = `<p style="color: #c53030; text-align: center;">An unexpected error occurred: ${error.message}</p>`;
+            } finally {
+                loadingIndicator.style.display = 'none'; // Hide loading indicator
+            }
+        });
     </script>
 </body>
 </html>
