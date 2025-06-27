@@ -764,6 +764,7 @@
         document.head.appendChild(style);
 
         // Detect mobile app and show helpful notice
+        /*
         document.addEventListener('DOMContentLoaded', function() {
             isMobileApp = typeof speechSynthesis === 'undefined' || !window.speechSynthesis;
             
@@ -785,7 +786,7 @@
                 container.insertBefore(mobileNotice, container.children[1]);
             }
         });
-
+        */
         // Load voices when available
         if (typeof speechSynthesis !== 'undefined' && speechSynthesis) {
             speechSynthesis.onvoiceschanged = function() {
