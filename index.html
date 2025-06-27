@@ -3,580 +3,595 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Basic Chinese Language Guide</title>
-    <!-- Link to PWA Manifest - UPDATED PATH -->
-    <link rel="manifest" href="/china-guide/manifest.json">
-    <!-- Tailwind CSS CDN for styling -->
-    <script src="https://cdn.tailwindcss.com"></script>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <title>Basic Chinese Learning Guide</title>
     <style>
         body {
-            font-family: 'Inter', sans-serif;
-            background-color: #f8fafc; /* Tailwind's gray-50 */
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            max-width: 1000px;
+            margin: 0 auto;
+            padding: 20px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+        }
+        .container {
+            background: white;
+            border-radius: 15px;
+            padding: 30px;
+            box-shadow: 0 20px 40px rgba(0,0,0,0.1);
+        }
+        h1 {
+            color: #333;
+            text-align: center;
+            margin-bottom: 30px;
+            font-size: 2.5em;
+        }
+        h2 {
+            color: #4a5568;
+            border-bottom: 3px solid #667eea;
+            padding-bottom: 10px;
+            margin-top: 40px;
+        }
+        .character-grid, .phrase-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 20px;
+            margin: 20px 0;
         }
         .card {
-            background-color: #ffffff;
-            border-radius: 0.75rem; /* rounded-xl */
-            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06); /* shadow-md */
-            padding: 1.5rem; /* p-6 */
-            margin-bottom: 1rem; /* mb-4 */
+            background: #f8f9fa;
+            border: 2px solid #e9ecef;
+            border-radius: 12px;
+            padding: 20px;
+            transition: all 0.3s ease;
+            position: relative;
         }
-        .play-button {
-            background-color: #3b82f6; /* blue-500 */
+        .card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 25px rgba(0,0,0,0.15);
+            border-color: #667eea;
+        }
+        .chinese-char {
+            font-size: 3em;
+            color: #2d3748;
+            text-align: center;
+            margin: 10px 0;
+            font-weight: bold;
+        }
+        .pinyin {
+            font-size: 1.2em;
+            color: #667eea;
+            text-align: center;
+            font-weight: bold;
+            margin: 5px 0;
+        }
+        .english {
+            font-size: 1.1em;
+            color: #4a5568;
+            text-align: center;
+            margin: 10px 0;
+        }
+        .play-btn {
+            background: #667eea;
             color: white;
-            padding: 0.5rem 1rem;
-            border-radius: 0.5rem; /* rounded-lg */
-            transition: background-color 0.2s;
-            display: inline-flex;
+            border: none;
+            border-radius: 50%;
+            width: 50px;
+            height: 50px;
+            font-size: 1.5em;
+            cursor: pointer;
+            position: absolute;
+            top: 15px;
+            right: 15px;
+            transition: all 0.3s ease;
+            display: flex;
             align-items: center;
-            gap: 0.5rem;
-            font-weight: 500;
+            justify-content: center;
         }
-        .play-button:hover {
-            background-color: #2563eb; /* blue-600 */
+        .play-btn:hover {
+            background: #5a67d8;
+            transform: scale(1.1);
         }
-        .tone-box {
-            background-color: #e0f2fe; /* light blue */
-            border-radius: 0.75rem;
-            padding: 1rem;
-            margin-bottom: 1rem;
-            border: 1px solid #93c5fd; /* blue-300 */
+        .phrase-card {
+            background: #e6fffa;
+            border-color: #38b2ac;
         }
-        .tone-label {
-            font-weight: 600;
-            color: #1d4ed8; /* blue-700 */
+        .phrase-card:hover {
+            border-color: #319795;
         }
-        /* Flex container for cards on larger screens */
-        @media (min-width: 768px) {
-            .tones-grid {
-                display: grid;
-                grid-template-columns: repeat(2, 1fr);
-                gap: 1rem;
-            }
+        .phrase-chinese {
+            font-size: 1.8em;
+            color: #2d3748;
+            margin: 10px 0;
+            font-weight: bold;
+        }
+        .notes {
+            background: #fff5f5;
+            border: 2px solid #fed7d7;
+            border-radius: 8px;
+            padding: 15px;
+            margin: 20px 0;
+        }
+        .notes h3 {
+            color: #c53030;
+            margin-top: 0;
         }
     </style>
 </head>
-<body class="p-4 md:p-8">
+<body>
+    <div class="container">
+        <h1>🇨🇳 Basic Chinese Learning Guide</h1>
+        
+        <div class="notes">
+            <h3>📚 About Chinese Characters (Hanzi)</h3>
+            <p>Chinese characters are called "hanzi" (汉字). Each character represents a word or concept. The pronunciation guide uses "pinyin" - the official romanization system for Mandarin Chinese. The numbers (1-4) indicate tones, which are crucial for meaning!</p>
+        </div>
 
-    <div class="max-w-4xl mx-auto">
-        <h1 class="text-3xl md:text-4xl font-bold text-center text-gray-800 mb-8 mt-4">Your Basic Chinese Language Guide</h1>
-
-        <!-- Essential Hanzi Section -->
-        <section class="card">
-            <h2 class="text-2xl font-semibold text-gray-700 mb-4">Essential Hanzi (Characters) for Travelers</h2>
-            <p class="text-gray-600 mb-4">These are common characters you might see on signs. While often called "Kanjis" by English speakers (a term used for Japanese characters), in Chinese they are called Hanzi.</p>
-            <ul class="space-y-3">
-                <li class="flex items-center space-x-4">
-                    <span class="text-3xl font-bold text-blue-700 w-24">出口</span>
-                    <div>
-                        <p class="text-lg font-medium text-gray-800">Chūkǒu</p>
-                        <p class="text-gray-600">Exit</p>
-                    </div>
-                </li>
-                <li class="flex items-center space-x-4">
-                    <span class="text-3xl font-bold text-blue-700 w-24">入口</span>
-                    <div>
-                        <p class="text-lg font-medium text-gray-800">Rùkǒu</p>
-                        <p class="text-gray-600">Entrance</p>
-                    </div>
-                </li>
-                <li class="flex items-center space-x-4">
-                    <span class="text-3xl font-bold text-blue-700 w-24">卫生间</span>
-                    <div>
-                        <p class="text-lg font-medium text-gray-800">Wèishēngjiān</p>
-                        <p class="text-gray-600">Bathroom / Restroom</p>
-                    </div>
-                </li>
-                <li class="flex items-center space-x-4">
-                    <span class="text-3xl font-bold text-blue-700 w-24">男</span>
-                    <div>
-                        <p class="text-lg font-medium text-gray-800">Nán</p>
-                        <p class="text-gray-600">Men / Male</p>
-                    </div>
-                </li>
-                <li class="flex items-center space-x-4">
-                    <span class="text-3xl font-bold text-blue-700 w-24">女</span>
-                    <div>
-                        <p class="text-lg font-medium text-gray-800">Nǚ</p>
-                        <p class="text-gray-600">Women / Female</p>
-                    </div>
-                </li>
-                <li class="flex items-center space-x-4">
-                    <span class="text-3xl font-bold text-blue-700 w-24">饭店</span>
-                    <div>
-                        <p class="text-lg font-medium text-gray-800">Fàndiàn</p>
-                        <p class="text-gray-600">Restaurant / Hotel</p>
-                    </div>
-                </li>
-                <li class="flex items-center space-x-4">
-                    <span class="text-3xl font-bold text-blue-700 w-24">医院</span>
-                    <div>
-                        <p class="text-lg font-medium text-gray-800">Yīyuàn</p>
-                        <p class="text-gray-600">Hospital</p>
-                    </div>
-                </li>
-                <li class="flex items-center space-x-4">
-                    <span class="text-3xl font-bold text-blue-700 w-24">警察</span>
-                    <div>
-                        <p class="text-lg font-medium text-gray-800">Jǐngchá</p>
-                        <p class="text-gray-600">Police</p>
-                    </div>
-                </li>
-            </ul>
-        </section>
-
-        <!-- Key Phrases Section -->
-        <section class="card">
-            <h2 class="text-2xl font-semibold text-gray-700 mb-4">Key Phrases for Daily Communication</h2>
-            <p class="text-gray-600 mb-4">Practice these essential phrases. Click the "Play Audio" button to hear the pronunciation.</p>
-            <ul class="space-y-4">
-                <li class="flex flex-col sm:flex-row sm:items-center justify-between p-3 bg-blue-50 rounded-lg">
-                    <div>
-                        <p class="text-xl font-bold text-blue-800">谢谢 <span class="text-lg font-normal text-blue-600">(Xièxiè)</span></p>
-                        <p class="text-gray-700">Thank you</p>
-                    </div>
-                    <button class="play-button mt-2 sm:mt-0" onclick="speakText('Xièxiè', 'zh-CN')">
-                        <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zM9.555 7.168A1 1 0 008 8v4a1 1 0 001.555.832l3-2a1 1 0 000-1.664l-3-2z" clip-rule="evenodd"></path></svg>
-                        Play Audio
-                    </button>
-                </li>
-                <li class="flex flex-col sm:flex-row sm:items-center justify-between p-3 bg-blue-50 rounded-lg">
-                    <div>
-                        <p class="text-xl font-bold text-blue-800">请 <span class="text-lg font-normal text-blue-600">(Qǐng)</span></p>
-                        <p class="text-gray-700">Please</p>
-                    </div>
-                    <button class="play-button mt-2 sm:mt-0" onclick="speakText('Qǐng', 'zh-CN')">
-                        <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zM9.555 7.168A1 1 0 008 8v4a1 1 0 001.555.832l3-2a1 1 0 000-1.664l-3-2z" clip-rule="evenodd"></path></svg>
-                        Play Audio
-                    </button>
-                </li>
-                <li class="flex flex-col sm:flex-row sm:items-center justify-between p-3 bg-blue-50 rounded-lg">
-                    <div>
-                        <p class="text-xl font-bold text-blue-800">这里 <span class="text-lg font-normal text-blue-600">(Zhèlǐ)</span></p>
-                        <p class="text-gray-700">Here</p>
-                    </div>
-                    <button class="play-button mt-2 sm:mt-0" onclick="speakText('Zhèlǐ', 'zh-CN')">
-                        <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zM9.555 7.168A1 1 0 008 8v4a1 1 0 001.555.832l3-2a1 1 0 000-1.664l-3-2z" clip-rule="evenodd"></path></svg>
-                        Play Audio
-                    </button>
-                </li>
-                <li class="flex flex-col sm:flex-row sm:items-center justify-between p-3 bg-blue-50 rounded-lg">
-                    <div>
-                        <p class="text-xl font-bold text-blue-800">哪里? <span class="text-lg font-normal text-blue-600">(Nǎlǐ?)</span></p>
-                        <p class="text-gray-700">Where?</p>
-                    </div>
-                    <button class="play-button mt-2 sm:mt-0" onclick="speakText('Nǎlǐ?', 'zh-CN')">
-                        <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zM9.555 7.168A1 1 0 008 8v4a1 1 0 001.555.832l3-2a1 1 0 000-1.664l-3-2z" clip-rule="evenodd"></path></svg>
-                        Play Audio
-                    </button>
-                </li>
-                <li class="flex flex-col sm:flex-row sm:items-center justify-between p-3 bg-blue-50 rounded-lg">
-                    <div>
-                        <p class="text-xl font-bold text-blue-800">水 <span class="text-lg font-normal text-blue-600">(Shuǐ)</span></p>
-                        <p class="text-gray-700">Water</p>
-                    </div>
-                    <button class="play-button mt-2 sm:mt-0" onclick="speakText('Shuǐ', 'zh-CN')">
-                        <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zM9.555 7.168A1 1 0 008 8v4a1 1 0 001.555.832l3-2a1 1 0 000-1.664l-3-2z" clip-rule="evenodd"></path></svg>
-                        Play Audio
-                    </button>
-                </li>
-                <li class="flex flex-col sm:flex-row sm:items-center justify-between p-3 bg-blue-50 rounded-lg">
-                    <div>
-                        <p class="text-xl font-bold text-blue-800">食物 <span class="text-lg font-normal text-blue-600">(Shíwù)</span></p>
-                        <p class="text-gray-700">Food</p>
-                    </div>
-                    <button class="play-button mt-2 sm:mt-0" onclick="speakText('Shíwù', 'zh-CN')">
-                        <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zM9.555 7.168A1 1 0 008 8v4a1 1 0 001.555.832l3-2a1 1 0 000-1.664l-3-2z" clip-rule="evenodd"></path></svg>
-                        Play Audio
-                    </button>
-                </li>
-                <li class="flex flex-col sm:flex-row sm:items-center justify-between p-3 bg-blue-50 rounded-lg">
-                    <div>
-                        <p class="text-xl font-bold text-blue-800">是 <span class="text-lg font-normal text-blue-600">(Shì)</span> / 对 <span class="text-lg font-normal text-blue-600">(Duì)</span></p>
-                        <p class="text-gray-700">Yes (Shì often for "is", Duì for "correct/right")</p>
-                    </div>
-                    <div class="flex space-x-2 mt-2 sm:mt-0">
-                        <button class="play-button" onclick="speakText('Shì', 'zh-CN')">
-                            <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zM9.555 7.168A1 1 0 008 8v4a1 1 0 001.555.832l3-2a1 1 0 000-1.664l-3-2z" clip-rule="evenodd"></path></svg>
-                            Shì
-                        </button>
-                        <button class="play-button" onclick="speakText('Duì', 'zh-CN')">
-                            <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zM9.555 7.168A1 1 0 008 8v4a1 1 0 001.555.832l3-2a1 1 0 000-1.664l-3-2z" clip-rule="evenodd"></path></svg>
-                            Duì
-                        </button>
-                    </div>
-                </li>
-                <li class="flex flex-col sm:flex-row sm:items-center justify-between p-3 bg-blue-50 rounded-lg">
-                    <div>
-                        <p class="text-xl font-bold text-blue-800">不 <span class="text-lg font-normal text-blue-600">(Bù)</span></p>
-                        <p class="text-gray-700">No / Not</p>
-                    </div>
-                    <button class="play-button mt-2 sm:mt-0" onclick="speakText('Bù', 'zh-CN')">
-                        <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zM9.555 7.168A1 1 0 008 8v4a1 1 0 001.555.832l3-2a1 1 0 000-1.664l-3-2z" clip-rule="evenodd"></path></svg>
-                        Play Audio
-                    </button>
-                </li>
-            </ul>
-        </section>
-
-        <!-- Tones Section -->
-        <section class="card">
-            <h2 class="text-2xl font-semibold text-gray-700 mb-4">Understanding Chinese Tones</h2>
-            <p class="text-gray-600 mb-4">Mandarin Chinese is a tonal language, meaning the pitch contour of a word changes its meaning. There are four main tones and a neutral tone. Pay close attention to how your voice moves as you say these words.</p>
-
-            <div class="tones-grid">
-                <!-- First Tone -->
-                <div class="tone-box">
-                    <p class="tone-label text-xl mb-2">First Tone (高平调 - Gāo Píng Diào)</p>
-                    <p class="text-gray-700 mb-3"><strong>High and Flat:</strong> The voice stays high and level. Imagine singing a note and holding it steady.</p>
-                    <ul class="space-y-3">
-                        <li class="flex items-center justify-between">
-                            <div>
-                                <p class="text-lg font-bold text-gray-800">妈 <span class="font-normal text-blue-600">(mā)</span></p>
-                                <p class="text-gray-600">Mother</p>
-                            </div>
-                            <button class="play-button" onclick="speakText('mā', 'zh-CN')">Play</button>
-                        </li>
-                        <li class="flex items-center justify-between">
-                            <div>
-                                <p class="text-lg font-bold text-gray-800">高 <span class="font-normal text-blue-600">(gāo)</span></p>
-                                <p class="text-gray-600">High</p>
-                            </div>
-                            <button class="play-button" onclick="speakText('gāo', 'zh-CN')">Play</button>
-                        </li>
-                    </ul>
-                </div>
-
-                <!-- Second Tone -->
-                <div class="tone-box">
-                    <p class="tone-label text-xl mb-2">Second Tone (升调 - Shēng Diào)</p>
-                    <p class="text-gray-700 mb-3"><strong>Rising Tone:</strong> The voice rises from a mid-low pitch to a mid-high pitch. Like asking a question in English.</p>
-                    <ul class="space-y-3">
-                        <li class="flex items-center justify-between">
-                            <div>
-                                <p class="text-lg font-bold text-gray-800">麻 <span class="font-normal text-blue-600">(má)</span></p>
-                                <p class="text-gray-600">Hemp / Numb</p>
-                            </div>
-                            <button class="play-button" onclick="speakText('má', 'zh-CN')">Play</button>
-                        </li>
-                        <li class="flex items-center justify-between">
-                            <div>
-                                <p class="text-lg font-bold text-gray-800">行 <span class="font-normal text-blue-600">(xíng)</span></p>
-                                <p class="text-gray-600">Okay / Alright</p>
-                            </div>
-                            <button class="play-button" onclick="speakText('xíng', 'zh-CN')">Play</button>
-                        </li>
-                    </ul>
-                </div>
-
-                <!-- Third Tone -->
-                <div class="tone-box">
-                    <p class="tone-label text-xl mb-2">Third Tone (上声 - Shǎngshēng)</p>
-                    <p class="text-gray-700 mb-3"><strong>Dipping Tone:</strong> The voice dips from mid to low, then rises to mid-high. Like a "hmm?" sound, but rising at the end.</p>
-                    <ul class="space-y-3">
-                        <li class="flex items-center justify-between">
-                            <div>
-                                <p class="text-lg font-bold text-gray-800">马 <span class="font-normal text-blue-600">(mǎ)</span></p>
-                                <p class="text-gray-600">Horse</p>
-                            </div>
-                            <button class="play-button" onclick="speakText('mǎ', 'zh-CN')">Play</button>
-                        </li>
-                        <li class="flex items-center justify-between">
-                            <div>
-                                <p class="text-lg font-bold text-gray-800">果 <span class="font-normal text-blue-600">(guǒ)</span></p>
-                                <p class="text-gray-600">Fruit</p>
-                            </div>
-                            <button class="play-button" onclick="speakText('guǒ', 'zh-CN')">Play</button>
-                        </li>
-                    </ul>
-                </div>
-
-                <!-- Fourth Tone -->
-                <div class="tone-box">
-                    <p class="tone-label text-xl mb-2">Fourth Tone (去声 - Qùshēng)</p>
-                    <p class="text-gray-700 mb-3"><strong>Falling Tone:</strong> The voice falls sharply from a high pitch to a low pitch. Like a command or a firm statement.</p>
-                    <ul class="space-y-3">
-                        <li class="flex items-center justify-between">
-                            <div>
-                                <p class="text-lg font-bold text-gray-800">骂 <span class="font-normal text-blue-600">(mà)</span></p>
-                                <p class="text-gray-600">To Scold</p>
-                            </div>
-                            <button class="play-button" onclick="speakText('mà', 'zh-CN')">Play</button>
-                        </li>
-                        <li class="flex items-center justify-between">
-                            <div>
-                                <p class="text-lg font-bold text-gray-800">不 <span class="font-normal text-blue-600">(bù)</span></p>
-                                <p class="text-gray-600">No / Not</p>
-                            </div>
-                            <button class="play-button" onclick="speakText('bù', 'zh-CN')">Play</button>
-                        </li>
-                    </ul>
-                </div>
-
-                <!-- Neutral Tone -->
-                <div class="tone-box md:col-span-2">
-                    <p class="tone-label text-xl mb-2">Neutral Tone (轻声 - Qīngshēng)</p>
-                    <p class="text-gray-700 mb-3"><strong>Light and Short:</strong> Often occurs in unstressed syllables or grammatical particles. It's pronounced lightly and quickly without a distinct tone contour.</p>
-                    <ul class="space-y-3">
-                        <li class="flex items-center justify-between">
-                            <div>
-                                <p class="text-lg font-bold text-gray-800">妈妈 <span class="font-normal text-blue-600">(māma)</span></p>
-                            <p class="text-gray-600">Mommy (second 'ma' is neutral tone)</p>
-                            </div>
-                            <button class="play-button" onclick="speakText('māma', 'zh-CN')">Play</button>
-                        </li>
-                        <li class="flex items-center justify-between">
-                            <div>
-                                <p class="text-lg font-bold text-gray-800">吗 <span class="font-normal text-blue-600">(ma)</span></p>
-                                <p class="text-gray-600">Question particle (at the end of a sentence)</p>
-                            </div>
-                            <button class="play-button" onclick="speakText('ma', 'zh-CN')">Play</button>
-                        </li>
-                    </ul>
-                </div>
+        <h2>🚪 Essential Signs & Places</h2>
+        <div class="character-grid">
+            <div class="card">
+                <button class="play-btn" onclick="speak('出口', 'zh-CN')">🔊</button>
+                <div class="chinese-char">出口</div>
+                <div class="pinyin">chū kǒu</div>
+                <div class="english">Exit</div>
             </div>
-        </section>
-
-        <!-- New LLM Feature Section -->
-        <section class="card">
-            <h2 class="text-2xl font-semibold text-gray-700 mb-4">✨ Get Phrases for Any Situation ✨</h2>
-            <p class="text-gray-600 mb-4">Describe a situation you might encounter in China, and I'll generate some useful Chinese phrases for you!</p>
-
-            <div class="mb-4">
-                <textarea id="situationInput" rows="3" class="w-full p-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500" placeholder="e.g., Ordering coffee at a cafe, asking for directions to the train station, checking into a hotel..."></textarea>
+            <div class="card">
+                <button class="play-btn" onclick="speak('入口', 'zh-CN')">🔊</button>
+                <div class="chinese-char">入口</div>
+                <div class="pinyin">rù kǒu</div>
+                <div class="english">Entrance</div>
             </div>
-            <button id="generatePhrasesButton" class="play-button w-full justify-center">
-                <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zM9.555 7.168A1 1 0 008 8v4a1 1 0 001.555.832l3-2a1 1 0 000-1.664l-3-2z" clip-rule="evenodd"></path></svg>
-                Generate Phrases
-            </button>
-
-            <div id="loadingIndicator" class="hidden text-center text-blue-600 mt-4">
-                <p>Generating phrases... please wait.</p>
+            <div class="card">
+                <button class="play-btn" onclick="speak('厕所', 'zh-CN')">🔊</button>
+                <div class="chinese-char">厕所</div>
+                <div class="pinyin">cè suǒ</div>
+                <div class="english">Bathroom/Toilet</div>
             </div>
-
-            <div id="generatedPhrasesOutput" class="mt-6 space-y-4">
-                <!-- Generated phrases will be displayed here -->
+            <div class="card">
+                <button class="play-btn" onclick="speak('男', 'zh-CN')">🔊</button>
+                <div class="chinese-char">男</div>
+                <div class="pinyin">nán</div>
+                <div class="english">Men</div>
             </div>
-        </section>
+            <div class="card">
+                <button class="play-btn" onclick="speak('女', 'zh-CN')">🔊</button>
+                <div class="chinese-char">女</div>
+                <div class="pinyin">nǚ</div>
+                <div class="english">Women</div>
+            </div>
+            <div class="card">
+                <button class="play-btn" onclick="speak('医院', 'zh-CN')">🔊</button>
+                <div class="chinese-char">医院</div>
+                <div class="pinyin">yī yuán</div>
+                <div class="english">Hospital</div>
+            </div>
+            <div class="card">
+                <button class="play-btn" onclick="speak('火车站', 'zh-CN')">🔊</button>
+                <div class="chinese-char">火车站</div>
+                <div class="pinyin">huǒ chē zhàn</div>
+                <div class="english">Train Station</div>
+            </div>
+            <div class="card">
+                <button class="play-btn" onclick="speak('机场', 'zh-CN')">🔊</button>
+                <div class="chinese-char">机场</div>
+                <div class="pinyin">jī chǎng</div>
+                <div class="english">Airport</div>
+            </div>
+        </div>
 
+        <h2>💬 Essential Phrases</h2>
+        <div class="phrase-grid">
+            <div class="card phrase-card">
+                <button class="play-btn" onclick="speak('谢谢', 'zh-CN')">🔊</button>
+                <div class="phrase-chinese">谢谢</div>
+                <div class="pinyin">xiè xie</div>
+                <div class="english">Thank you</div>
+            </div>
+            <div class="card phrase-card">
+                <button class="play-btn" onclick="speak('请', 'zh-CN')">🔊</button>
+                <div class="phrase-chinese">请</div>
+                <div class="pinyin">qǐng</div>
+                <div class="english">Please</div>
+            </div>
+            <div class="card phrase-card">
+                <button class="play-btn" onclick="speak('这里', 'zh-CN')">🔊</button>
+                <div class="phrase-chinese">这里</div>
+                <div class="pinyin">zhè lǐ</div>
+                <div class="english">Here</div>
+            </div>
+            <div class="card phrase-card">
+                <button class="play-btn" onclick="speak('哪里', 'zh-CN')">🔊</button>
+                <div class="phrase-chinese">哪里？</div>
+                <div class="pinyin">nǎ lǐ?</div>
+                <div class="english">Where?</div>
+            </div>
+            <div class="card phrase-card">
+                <button class="play-btn" onclick="speak('水', 'zh-CN')">🔊</button>
+                <div class="phrase-chinese">水</div>
+                <div class="pinyin">shuǐ</div>
+                <div class="english">Water</div>
+            </div>
+            <div class="card phrase-card">
+                <button class="play-btn" onclick="speak('食物', 'zh-CN')">🔊</button>
+                <div class="phrase-chinese">食物</div>
+                <div class="pinyin">shí wù</div>
+                <div class="english">Food</div>
+            </div>
+        </div>
+
+        <h2>🗣️ Useful Conversation Starters</h2>
+        <div class="phrase-grid">
+            <div class="card phrase-card">
+                <button class="play-btn" onclick="speak('你好', 'zh-CN')">🔊</button>
+                <div class="phrase-chinese">你好</div>
+                <div class="pinyin">nǐ hǎo</div>
+                <div class="english">Hello</div>
+            </div>
+            <div class="card phrase-card">
+                <button class="play-btn" onclick="speak('对不起', 'zh-CN')">🔊</button>
+                <div class="phrase-chinese">对不起</div>
+                <div class="pinyin">duì bu qǐ</div>
+                <div class="english">Sorry/Excuse me</div>
+            </div>
+            <div class="card phrase-card">
+                <button class="play-btn" onclick="speak('不好意思', 'zh-CN')">🔊</button>
+                <div class="phrase-chinese">不好意思</div>
+                <div class="pinyin">bù hǎo yì si</div>
+                <div class="english">Excuse me (polite)</div>
+            </div>
+            <div class="card phrase-card">
+                <button class="play-btn" onclick="speak('我不会说中文', 'zh-CN')">🔊</button>
+                <div class="phrase-chinese">我不会说中文</div>
+                <div class="pinyin">wǒ bù huì shuō zhōng wén</div>
+                <div class="english">I don't speak Chinese</div>
+            </div>
+            <div class="card phrase-card">
+                <button class="play-btn" onclick="speak('多少钱', 'zh-CN')">🔊</button>
+                <div class="phrase-chinese">多少钱？</div>
+                <div class="pinyin">duō shao qián?</div>
+                <div class="english">How much?</div>
+            </div>
+            <div class="card phrase-card">
+                <button class="play-btn" onclick="speak('帮助', 'zh-CN')">🔊</button>
+                <div class="phrase-chinese">帮助</div>
+                <div class="pinyin">bāng zhù</div>
+                <div class="english">Help</div>
+            </div>
+        </div>
+
+        <h2>🎵 Mastering Chinese Tones</h2>
+        <div class="notes">
+            <h3>🎼 The Four Tones Explained</h3>
+            <p><strong>1st Tone (ˉ):</strong> High and flat - like singing a high note</p>
+            <p><strong>2nd Tone (ˊ):</strong> Rising - like asking "what?" in English</p>
+            <p><strong>3rd Tone (ˇ):</strong> Falling then rising - like "oh" when you realize something</p>
+            <p><strong>4th Tone (ˋ):</strong> Sharp falling - like a firm "no!"</p>
+            <p><strong>Neutral Tone:</strong> Light and quick - unstressed</p>
+        </div>
+
+        <h3>🎯 Tone Practice - "MA" Family</h3>
+        <div class="phrase-grid">
+            <div class="card phrase-card">
+                <button class="play-btn" onclick="speak('妈', 'zh-CN')">🔊</button>
+                <div class="phrase-chinese">妈</div>
+                <div class="pinyin">mā (1st tone)</div>
+                <div class="english">Mother</div>
+            </div>
+            <div class="card phrase-card">
+                <button class="play-btn" onclick="speak('麻', 'zh-CN')">🔊</button>
+                <div class="phrase-chinese">麻</div>
+                <div class="pinyin">má (2nd tone)</div>
+                <div class="english">Hemp/Numb</div>
+            </div>
+            <div class="card phrase-card">
+                <button class="play-btn" onclick="speak('马', 'zh-CN')">🔊</button>
+                <div class="phrase-chinese">马</div>
+                <div class="pinyin">mǎ (3rd tone)</div>
+                <div class="english">Horse</div>
+            </div>
+            <div class="card phrase-card">
+                <button class="play-btn" onclick="speak('骂', 'zh-CN')">🔊</button>
+                <div class="phrase-chinese">骂</div>
+                <div class="pinyin">mà (4th tone)</div>
+                <div class="english">To scold</div>
+            </div>
+        </div>
+
+        <h3>🎯 Tone Practice - "SHI" Family</h3>
+        <div class="phrase-grid">
+            <div class="card phrase-card">
+                <button class="play-btn" onclick="speak('诗', 'zh-CN')">🔊</button>
+                <div class="phrase-chinese">诗</div>
+                <div class="pinyin">shī (1st tone)</div>
+                <div class="english">Poetry</div>
+            </div>
+            <div class="card phrase-card">
+                <button class="play-btn" onclick="speak('十', 'zh-CN')">🔊</button>
+                <div class="phrase-chinese">十</div>
+                <div class="pinyin">shí (2nd tone)</div>
+                <div class="english">Ten</div>
+            </div>
+            <div class="card phrase-card">
+                <button class="play-btn" onclick="speak('使', 'zh-CN')">🔊</button>
+                <div class="phrase-chinese">使</div>
+                <div class="pinyin">shǐ (3rd tone)</div>
+                <div class="english">To use</div>
+            </div>
+            <div class="card phrase-card">
+                <button class="play-btn" onclick="speak('是', 'zh-CN')">🔊</button>
+                <div class="phrase-chinese">是</div>
+                <div class="pinyin">shì (4th tone)</div>
+                <div class="english">To be/Yes</div>
+            </div>
+        </div>
+
+        <h3>🎯 Tone Practice - "BAO" Family</h3>
+        <div class="phrase-grid">
+            <div class="card phrase-card">
+                <button class="play-btn" onclick="speak('包', 'zh-CN')">🔊</button>
+                <div class="phrase-chinese">包</div>
+                <div class="pinyin">bāo (1st tone)</div>
+                <div class="english">Bag/Package</div>
+            </div>
+            <div class="card phrase-card">
+                <button class="play-btn" onclick="speak('薄', 'zh-CN')">🔊</button>
+                <div class="phrase-chinese">薄</div>
+                <div class="pinyin">báo (2nd tone)</div>
+                <div class="english">Thin</div>
+            </div>
+            <div class="card phrase-card">
+                <button class="play-btn" onclick="speak('保', 'zh-CN')">🔊</button>
+                <div class="phrase-chinese">保</div>
+                <div class="pinyin">bǎo (3rd tone)</div>
+                <div class="english">To protect</div>
+            </div>
+            <div class="card phrase-card">
+                <button class="play-btn" onclick="speak('报', 'zh-CN')">🔊</button>
+                <div class="phrase-chinese">报</div>
+                <div class="pinyin">bào (4th tone)</div>
+                <div class="english">Newspaper/Report</div>
+            </div>
+        </div>
+
+        <div class="notes">
+            <h3>🎯 Tone Practice Tips</h3>
+            <p><strong>Listen and repeat:</strong> Play each tone multiple times and try to mimic the pitch pattern.</p>
+            <p><strong>Use your hand:</strong> Move your hand to follow the tone pattern - flat for 1st, rising for 2nd, dip-rise for 3rd, falling for 4th.</p>
+            <p><strong>Practice pairs:</strong> Focus on distinguishing between tones that sound similar to you.</p>
+            <p><strong>Record yourself:</strong> Use your phone to record yourself saying the tones, then compare with the audio.</p>
+            <p><strong>Don't worry about perfection:</strong> Even slight tone errors are usually understood in context!</p>
+        </div>
+
+        <div class="notes">
+            <h3>🎯 Study Tips</h3>
+            <p><strong>Tones are crucial!</strong> Mandarin has 4 main tones plus a neutral tone. The same sound with different tones can mean completely different things.</p>
+            <p><strong>Practice daily:</strong> Try to use these phrases in context. Even 10 minutes daily will help significantly.</p>
+            <p><strong>Mobile apps:</strong> Consider downloading apps like Pleco (dictionary) or HelloChinese for additional practice.</p>
+            <p><strong>Cultural note:</strong> Chinese people are generally very patient and appreciative when foreigners attempt to speak Chinese, even imperfectly!</p>
+        </div>
     </div>
 
     <script>
-        // Global variable to hold the SpeechSynthesis object
-        let synth;
-        // Flag to track if voices have been loaded
-        let voicesLoaded = false;
+        let isMobileApp = false;
 
-        // Function to initialize speech synthesis and load voices
-        function initSpeechSynthesis() {
-            if ('speechSynthesis' in window) {
-                synth = window.speechSynthesis;
-
-                // Listen for voices to be loaded
-                synth.onvoiceschanged = () => {
-                    console.log("Voices changed/loaded.");
-                    voicesLoaded = true;
-                    // Optional: Log available Chinese voices
-                    // const chineseVoices = synth.getVoices().filter(voice => voice.lang.startsWith('zh'));
-                    // console.log("Available Chinese voices:", chineseVoices);
-                };
-
-                // If voices are already loaded (e.g., page loaded with synth active), set the flag
-                if (synth.getVoices().length > 0) {
-                    voicesLoaded = true;
-                }
-            } else {
-                console.error("Web Speech API is not supported in this browser.");
-            }
-        }
-
-        // Call initialization on page load
-        window.addEventListener('load', initSpeechSynthesis);
-
-
-        // Function to speak the provided text using the Web Speech API
-        function speakText(text, lang) {
-            // Log this line FIRST to confirm the function is being called
-            console.log("speakText called with:", text, lang);
-
-            if (!synth) {
-                // Using a custom modal/message box instead of alert()
-                showMessageBox("Audio Playback Not Available", "Your browser does not support the Web Speech API. Please try using Chrome, Edge, or Firefox.", true);
-                return;
-            }
-
-            if (!voicesLoaded) {
-                console.warn("Speech voices not yet loaded. Attempting to speak. If no audio, voices might still be loading or unavailable.");
-                synth.getVoices(); // Try to force voice loading
-                // A small delay and retry logic could be added here for more robust handling
-            }
-
-            const utterance = new SpeechSynthesisUtterance(text);
-            utterance.lang = lang; // Set language to Mandarin Chinese
-
-            // Attempt to find a specific Chinese voice for better consistency
-            const voices = synth.getVoices();
-            // Prioritize voices with exact 'zh-CN' or 'zh_CN' locale, then general 'zh'
-            const chineseVoice = voices.find(voice => voice.lang === 'zh-CN' || voice.lang === 'zh_CN') ||
-                                 voices.find(voice => voice.lang.startsWith('zh'));
-            
-            if (chineseVoice) {
-                utterance.voice = chineseVoice;
-                console.log("Using voice:", chineseVoice.name);
-            } else {
-                console.warn("No specific Chinese voice ('zh-CN') found. Using default voice for language, which may vary or be absent.");
-                if (voicesLoaded) { 
-                    showMessageBox("No Chinese Voice Found", "No Chinese voice found on your system/browser. Audio may not play or may use a generic voice. Please check your browser's language settings.");
-                }
-            }
-
-            // Add event listeners for debugging and user feedback
-            utterance.onstart = () => console.log('Speech started for:', text);
-            utterance.onend = () => console.log('Speech finished for:', text);
-            utterance.onerror = (event) => {
-                console.error('Speech synthesis error:', event.error, event);
-                let errorMessage = `Failed to play audio for "${text}". Error: ${event.error}.`;
-                if (event.error === 'network') {
-                    errorMessage += " This might be a network issue or missing language data.";
-                } else if (event.error === 'synthesis-failed') {
-                    errorMessage += " The browser's speech synthesis failed. Ensure a Chinese voice is installed and enabled in your OS/browser settings.";
-                } else if (event.error === 'not-allowed') {
-                    errorMessage += " Audio playback might be blocked by your browser's autoplay policy. Try interacting with the page more, or check browser settings.";
-                } else if (event.error === 'voice-unavailable') {
-                    errorMessage += " A suitable Chinese voice is not available. Please check your browser's language settings or install a Chinese language pack for your operating system.";
-                }
-                showMessageBox("Audio Playback Error", errorMessage + " Please consider trying a different browser (e.g., Chrome, Edge) or checking your system's language settings.", true);
-            };
-
-            synth.speak(utterance);
-        }
-
-        // Custom Message Box (replacing alert())
-        function showMessageBox(title, message, isError = false) {
-            let messageBox = document.getElementById('customMessageBox');
-            if (!messageBox) {
-                messageBox = document.createElement('div');
-                messageBox.id = 'customMessageBox';
-                messageBox.className = 'fixed inset-0 bg-gray-600 bg-opacity-50 flex items-center justify-center p-4 z-50';
-                messageBox.innerHTML = `
-                    <div class="bg-white rounded-lg shadow-xl p-6 w-full max-w-sm">
-                        <h3 id="messageBoxTitle" class="text-xl font-bold mb-4 ${isError ? 'text-red-700' : 'text-blue-700'}"></h3>
-                        <p id="messageBoxContent" class="text-gray-700 mb-6"></p>
-                        <button id="messageBoxClose" class="w-full bg-blue-500 hover:bg-blue-600 text-white font-bold py-2 px-4 rounded-lg">Close</button>
-                    </div>
-                `;
-                document.body.appendChild(messageBox);
-                document.getElementById('messageBoxClose').onclick = () => messageBox.classList.add('hidden');
-            }
-            document.getElementById('messageBoxTitle').textContent = title;
-            document.getElementById('messageBoxContent').textContent = message;
-            messageBox.classList.remove('hidden');
-        }
-
-
-        document.getElementById('generatePhrasesButton').addEventListener('click', async () => {
-            const situation = document.getElementById('situationInput').value.trim();
-            const outputDiv = document.getElementById('generatedPhrasesOutput');
-            const loadingIndicator = document.getElementById('loadingIndicator');
-
-            if (!situation) {
-                outputDiv.innerHTML = '<p class="text-red-500">Please describe a situation to generate phrases.</p>';
-                return;
-            }
-
-            // Show loading indicator and clear previous output
-            loadingIndicator.classList.remove('hidden');
-            outputDiv.innerHTML = '';
-            
-            try {
-                // Prepare the prompt for the LLM
-                let chatHistory = [];
-                const prompt = `Generate 3 to 5 common Chinese phrases for a traveler who is "${situation}". Provide the Chinese characters, Pinyin, and English meaning for each phrase. Format the response as a JSON array of objects, where each object has 'chinesePhrase', 'pinyin', and 'englishMeaning' fields.`;
-                chatHistory.push({ role: "user", parts: [{ text: prompt }] });
-
-                // Define the payload with the structured response schema
-                const payload = {
-                    contents: chatHistory,
-                    generationConfig: {
-                        responseMimeType: "application/json",
-                        responseSchema: {
-                            type: "ARRAY",
-                            items: {
-                                type: "OBJECT",
-                                properties: {
-                                    "chinesePhrase": { "type": "STRING" },
-                                    "pinyin": { "type": "STRING" },
-                                    "englishMeaning": { "type": "STRING" }
-                                },
-                                "required": ["chinesePhrase", "pinyin", "englishMeaning"]
-                            }
-                        }
-                    }
-                };
-
-                const apiKey = "AIzaSyAN6xQKZY37wPXc4xfe1IlOgNOGh5wCd9g"; // IMPORTANT: Replace with your actual Gemini API key for deployment!
-                const apiUrl = `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash:generateContent?key=${apiKey}`;
-
-                const response = await fetch(apiUrl, {
-                    method: 'POST',
-                    headers: { 'Content-Type': 'application/json' },
-                    body: JSON.stringify(payload)
-                });
-
-                if (!response.ok) {
-                    const errorData = await response.json();
-                    console.error('API Error:', errorData);
-                    outputDiv.innerHTML = `<p class="text-red-500">Error generating phrases: ${errorData.error.message || 'Unknown error'}</p>`;
-                    return;
-                }
-
-                const result = await response.json();
-
-                // Check if the response structure is valid
-                if (result.candidates && result.candidates.length > 0 &&
-                    result.candidates[0].content && result.candidates[0].content.parts &&
-                    result.candidates[0].content.parts.length > 0) {
+        function speak(text, lang) {
+            // Try speechSynthesis first (works on desktop)
+            if (typeof speechSynthesis !== 'undefined' && speechSynthesis) {
+                try {
+                    speechSynthesis.cancel();
+                    const utterance = new SpeechSynthesisUtterance(text);
+                    utterance.lang = lang;
+                    utterance.rate = 0.8;
                     
-                    const jsonString = result.candidates[0].content.parts[0].text;
-                    let generatedPhrases = [];
-                    try {
-                        generatedPhrases = JSON.parse(jsonString);
-                    } catch (parseError) {
-                        console.error('Failed to parse JSON from LLM:', parseError);
-                        console.log('Raw LLM response:', jsonString); // Log raw response for debugging
-                        outputDiv.innerHTML = '<p class="text-red-500">Could not understand the generated phrases. Please try again or refine your request.</p>';
-                        return;
+                    const voices = speechSynthesis.getVoices();
+                    const chineseVoice = voices.find(voice => 
+                        voice.lang.includes('zh') || 
+                        voice.lang.includes('CN') ||
+                        voice.name.includes('Chinese')
+                    );
+                    
+                    if (chineseVoice) {
+                        utterance.voice = chineseVoice;
                     }
+                    
+                    speechSynthesis.speak(utterance);
+                    return;
+                } catch (error) {
+                    console.log('speechSynthesis failed');
+                }
+            }
 
-                    if (generatedPhrases.length > 0) {
-                        generatedPhrases.forEach(phrase => {
-                            const phraseItem = document.createElement('li');
-                            phraseItem.className = 'flex flex-col sm:flex-row sm:items-center justify-between p-3 bg-indigo-50 rounded-lg';
-                            phraseItem.innerHTML = `
-                                <div>
-                                    <p class="text-xl font-bold text-indigo-800">${phrase.chinesePhrase} <span class="text-lg font-normal text-indigo-600">(${phrase.pinyin})</span></p>
-                                    <p class="text-gray-700">${phrase.englishMeaning}</p>
-                                </div>
-                                <button class="play-button mt-2 sm:mt-0" onclick="speakText('${phrase.pinyin}', 'zh-CN')">
-                                    <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zM9.555 7.168A1 1 0 008 8v4a1 1 0 001.555.832l3-2a1 1 0 000-1.664l-3-2z" clip-rule="evenodd"></path></svg>
-                                    Play Audio
-                                </button>
-                            `;
-                            outputDiv.appendChild(phraseItem);
-                        });
-                    } else {
-                        outputDiv.innerHTML = '<p class="text-gray-600">No phrases were generated for this situation. Please try a different description.</p>';
-                    }
+            // Fallback for mobile: Enhanced visual + haptic feedback
+            showEnhancedFeedback(text);
+        }
+
+        function showEnhancedFeedback(text) {
+            // Try haptic feedback if available
+            if (navigator.vibrate) {
+                navigator.vibrate([50, 50, 50]); // Short vibration pattern
+            }
+
+            // Create enhanced visual feedback
+            const feedbackDiv = document.createElement('div');
+            feedbackDiv.style.cssText = `
+                position: fixed;
+                top: 50%;
+                left: 50%;
+                transform: translate(-50%, -50%);
+                background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+                color: white;
+                padding: 40px;
+                border-radius: 20px;
+                box-shadow: 0 20px 40px rgba(0,0,0,0.4);
+                z-index: 1000;
+                font-size: 4em;
+                font-weight: bold;
+                text-align: center;
+                animation: expandPulse 0.6s ease-out;
+                border: 3px solid white;
+                min-width: 200px;
+            `;
+            
+            feedbackDiv.innerHTML = `
+                <div style="margin-bottom: 15px;">${text}</div>
+                <div style="font-size: 0.4em; opacity: 0.9;">
+                    📋 Long-press to copy<br>
+                    📱 Paste in Google Translate
+                </div>
+            `;
+            
+            document.body.appendChild(feedbackDiv);
+            
+            // Make it copyable on long press
+            let longPressTimer;
+            
+            feedbackDiv.addEventListener('touchstart', (e) => {
+                e.preventDefault();
+                longPressTimer = setTimeout(() => {
+                    copyToClipboard(text);
+                    showCopyConfirmation();
+                }, 800);
+            });
+            
+            feedbackDiv.addEventListener('touchend', () => {
+                clearTimeout(longPressTimer);
+            });
+            
+            // Also work for mouse events (desktop)
+            feedbackDiv.addEventListener('mousedown', (e) => {
+                longPressTimer = setTimeout(() => {
+                    copyToClipboard(text);
+                    showCopyConfirmation();
+                }, 800);
+            });
+            
+            feedbackDiv.addEventListener('mouseup', () => {
+                clearTimeout(longPressTimer);
+            });
+            
+            // Remove after 3 seconds
+            setTimeout(() => {
+                if (feedbackDiv.parentNode) {
+                    feedbackDiv.style.opacity = '0';
+                    feedbackDiv.style.transition = 'all 0.4s ease-out';
+                    feedbackDiv.style.transform = 'translate(-50%, -50%) scale(0.8)';
+                    setTimeout(() => {
+                        if (feedbackDiv.parentNode) {
+                            feedbackDiv.parentNode.removeChild(feedbackDiv);
+                        }
+                    }, 400);
+                }
+            }, 3000);
+        }
+
+        function copyToClipboard(text) {
+            try {
+                if (navigator.clipboard && navigator.clipboard.writeText) {
+                    navigator.clipboard.writeText(text);
                 } else {
-                    outputDiv.innerHTML = '<p class="text-red-500">Failed to get a valid response from the AI. Please try again.</p>';
+                    // Fallback for older browsers
+                    const textArea = document.createElement('textarea');
+                    textArea.value = text;
+                    textArea.style.position = 'fixed';
+                    textArea.style.opacity = '0';
+                    document.body.appendChild(textArea);
+                    textArea.select();
+                    document.execCommand('copy');
+                    document.body.removeChild(textArea);
                 }
             } catch (error) {
-                console.error("An unexpected error occurred:", error);
-                outputDiv.innerHTML = `<p class="text-red-500">An unexpected error occurred: ${error.message}</p>`;
-            } finally {
-                loadingIndicator.classList.add('hidden'); // Hide loading indicator
+                console.log('Copy failed:', error);
+            }
+        }
+
+        function showCopyConfirmation() {
+            const confirmDiv = document.createElement('div');
+            confirmDiv.style.cssText = `
+                position: fixed;
+                top: 30%;
+                left: 50%;
+                transform: translateX(-50%);
+                background: #10b981;
+                color: white;
+                padding: 15px 25px;
+                border-radius: 25px;
+                z-index: 1001;
+                font-weight: bold;
+                animation: slideDown 0.3s ease-out;
+            `;
+            confirmDiv.innerHTML = '✅ Copied! Paste in Google Translate';
+            
+            document.body.appendChild(confirmDiv);
+            
+            setTimeout(() => {
+                if (confirmDiv.parentNode) {
+                    confirmDiv.parentNode.removeChild(confirmDiv);
+                }
+            }, 2000);
+        }
+
+        // Enhanced CSS animations
+        const style = document.createElement('style');
+        style.textContent = `
+            @keyframes expandPulse {
+                0% { 
+                    transform: translate(-50%, -50%) scale(0.5); 
+                    opacity: 0; 
+                }
+                60% { 
+                    transform: translate(-50%, -50%) scale(1.05); 
+                    opacity: 1; 
+                }
+                100% { 
+                    transform: translate(-50%, -50%) scale(1); 
+                    opacity: 1; 
+                }
+            }
+            
+            @keyframes slideDown {
+                0% { 
+                    transform: translateX(-50%) translateY(-20px); 
+                    opacity: 0; 
+                }
+                100% { 
+                    transform: translateX(-50%) translateY(0); 
+                    opacity: 1; 
+                }
+            }
+            
+            .play-btn:active {
+                transform: scale(0.95);
+            }
+        `;
+        document.head.appendChild(style);
+
+        // Detect mobile app and show helpful notice
+        document.addEventListener('DOMContentLoaded', function() {
+            isMobileApp = typeof speechSynthesis === 'undefined' || !window.speechSynthesis;
+            
+            if (isMobileApp) {
+                const container = document.querySelector('.container');
+                const mobileNotice = document.createElement('div');
+                mobileNotice.className = 'notes';
+                mobileNotice.style.background = '#e6fffa';
+                mobileNotice.style.borderColor = '#38b2ac';
+                mobileNotice.innerHTML = `
+                    <h3>📱 Mobile App Mode</h3>
+                    <p><strong>Audio Alternative:</strong> Tap any 🔊 button to see the Chinese text large, then:</p>
+                    <p>🔹 <strong>Long-press</strong> the popup to copy the text</p>
+                    <p>🔹 <strong>Paste</strong> into Google Translate app for pronunciation</p>
+                    <p>🔹 Or use any Chinese dictionary app with TTS</p>
+                    <p><em>This gives you the same pronunciation practice on-the-go!</em></p>
+                `;
+                container.insertBefore(mobileNotice, container.firstChild.nextSibling);
             }
         });
+
+        // Load voices when available
+        if (typeof speechSynthesis !== 'undefined' && speechSynthesis) {
+            speechSynthesis.onvoiceschanged = function() {
+                // Voices loaded
+            };
+        }
     </script>
 </body>
 </html>
