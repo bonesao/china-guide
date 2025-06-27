@@ -1,13 +1,15 @@
 // service-worker.js
 
 const CACHE_NAME = 'chinese-guide-v1';
+// UPDATED paths to include the repository name
 const urlsToCache = [
-  '/',
-  '/index.html',
-  '/manifest.json',
-  // You would also include your icon files here, e.g.:
-  // '/icons/icon-192x192.png',
-  // '/icons/icon-512x512.png',
+  '/china-guide/', // Important: Cache the base URL including the repo name
+  '/china-guide/index.html',
+  '/china-guide/manifest.json',
+  '/china-guide/service-worker.js', // Cache itself
+  // You would also include your icon files here:
+  // '/china-guide/icons/icon-192x192.png',
+  // '/china-guide/icons/icon-512x512.png',
   // External resources (like Tailwind CSS CDN) typically shouldn't be aggressively cached by *your* service worker
   // unless you have control over them and specific reasons to do so.
   // For basic offline, only cache your primary assets.
@@ -72,7 +74,8 @@ self.addEventListener('fetch', (event) => {
 // This part is handled by the script tag at the bottom of index.html
 // if ('serviceWorker' in navigator) {
 //   window.addEventListener('load', () => {
-//     navigator.serviceWorker.register('/service-worker.js')
+//     // UPDATED scope for registration
+//     navigator.serviceWorker.register('/china-guide/service-worker.js')
 //       .then(registration => {
 //         console.log('ServiceWorker registration successful with scope: ', registration.scope);
 //       })
