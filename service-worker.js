@@ -11,18 +11,10 @@ const urlsToCache = [
   // '/china-guide/icons/icon-192x192.png',
   // '/china-guide/icons/icon-512x512.png',
   // Hand sign images for numbers
-  '/china-guide/img/1.png',
-  '/china-guide/img/2.png',
-  '/china-guide/img/3.png',
-  '/china-guide/img/4.png',
-  '/china-guide/img/5.png',
   '/china-guide/img/6.png',
   '/china-guide/img/7.png',
   '/china-guide/img/8.png',
   '/china-guide/img/9.png',
-  '/china-guide/img/10.png',
-  '/china-guide/img/100.png',
-  '/china-guide/img/1000.png',
   // External resources (like Tailwind CSS CDN) typically shouldn't be aggressively cached by *your* service worker
   // unless you have control over them and specific reasons to do so.
   // For basic offline, only cache your primary assets.
