@@ -559,7 +559,7 @@
                     } else {
                         console.warn('No specific voice found for', lang, '. Using default voice for language, which may vary or be absent.');
                         if (speechSynthesis.getVoices().length > 0) {
-                            showMessageBox('No Voice Found', `No dedicated voice for ${lang} found on your system/browser. Audio may not play or may use a generic voice. Please check your browser's language settings.`);
+                            showMessageBox('No Voice Found', "No dedicated voice for ${lang} found on your system/browser. Audio may not play or may use a generic voice. Please check your browser's language settings.");
                         }
                     }
 
@@ -577,7 +577,7 @@
                         } else if (event.error === 'voice-unavailable') {
                             errorMessage += " A suitable voice is not available. Please check your browser's language settings or install the language pack for your operating system.";
                         }
-                        showMessageBox('Audio Playback Error', errorMessage + ' Please consider trying a different browser (e.g., Chrome, Edge) or checking your system's language settings.', true);
+                        showMessageBox('Audio Playback Error', errorMessage + " Please consider trying a different browser (e.g., Chrome, Edge) or checking your system's language settings.", true);
                     };
 
                     speechSynthesis.speak(utterance);
