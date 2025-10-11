@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Basic Chinese Learning Guide</title>
+    <title>Basic Travel Language Guide</title>
     <!-- Link to PWA Manifest (adjust path if needed for your GitHub Pages setup) -->
     <link rel="manifest" href="/china-guide/manifest.json">
     <style>
@@ -33,6 +33,24 @@
             padding-bottom: 10px;
             margin-top: 40px;
         }
+        .language-selector {
+            display: flex;
+            justify-content: flex-end;
+            align-items: center;
+            gap: 10px;
+            margin-bottom: 10px;
+        }
+        .language-selector label {
+            font-weight: bold;
+            color: #4a5568;
+        }
+        .language-selector select {
+            padding: 6px 10px;
+            border-radius: 8px;
+            border: 1px solid #cbd5f5;
+            font-size: 1em;
+            background-color: #f7fafc;
+        }
         .character-grid, .phrase-grid {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
@@ -58,6 +76,13 @@
             text-align: center;
             margin: 10px 0;
             font-weight: bold;
+        }
+        .phrase-chinese {
+            font-size: 1.8em;
+            color: #2d3748;
+            margin: 10px 0;
+            font-weight: bold;
+            text-align: center;
         }
         .pinyin {
             font-size: 1.2em;
@@ -105,12 +130,6 @@
         .phrase-card:hover {
             border-color: #319795;
         }
-        .phrase-chinese {
-            font-size: 1.8em;
-            color: #2d3748;
-            margin: 10px 0;
-            font-weight: bold;
-        }
         .notes {
             background: #fff5f5;
             border: 2px solid #fed7d7;
@@ -122,31 +141,30 @@
             color: #c53030;
             margin-top: 0;
         }
-        /* New styles for Gemini integration section */
         .gemini-section {
-            background: #e0f7fa; /* Light blue background */
-            border: 2px solid #00bcd4; /* Cyan border */
+            background: #e0f7fa;
+            border: 2px solid #00bcd4;
             border-radius: 15px;
             padding: 30px;
             box-shadow: 0 10px 20px rgba(0,0,0,0.08);
             margin-top: 40px;
         }
         .gemini-section h2 {
-            color: #00796b; /* Darker cyan */
+            color: #00796b;
             border-bottom-color: #00bcd4;
         }
         .gemini-section textarea {
             width: 100%;
             padding: 12px;
-            border: 1px solid #b2ebf2; /* Lighter cyan border */
+            border: 1px solid #b2ebf2;
             border-radius: 8px;
             font-size: 1em;
             resize: vertical;
             min-height: 80px;
-            box-sizing: border-box; /* Include padding and border in the element's total width and height */
+            box-sizing: border-box;
         }
         .gemini-section button {
-            background: #00bcd4; /* Cyan button */
+            background: #00bcd4;
             color: white;
             padding: 12px 25px;
             border: none;
@@ -158,7 +176,7 @@
             margin-top: 15px;
         }
         .gemini-section button:hover {
-            background: #0097a7; /* Darker cyan on hover */
+            background: #0097a7;
         }
         .loading-indicator {
             text-align: center;
@@ -177,480 +195,407 @@
 </head>
 <body>
     <div class="container">
-        <h1>🇨🇳 Basic Chinese Survival Kit</h1>
-        
-
-        <h2>🚪 Essential Signs & Places</h2>
-        <div class="character-grid">
-            <div class="card">
-                <button class="play-btn" onclick="speak('出口', 'zh-CN')">🔊</button>
-                <div class="chinese-char">出口</div>
-                <div class="pinyin">chū kǒu</div>
-                <div class="english">Exit</div>
-            </div>
-            <div class="card">
-                <button class="play-btn" onclick="speak('入口', 'zh-CN')">🔊</button>
-                <div class="chinese-char">入口</div>
-                <div class="pinyin">rù kǒu</div>
-                <div class="english">Entrance</div>
-            </div>
-            <div class="card">
-                <button class="play-btn" onclick="speak('禁止', 'zh-CN')">🔊</button>
-                <div class="chinese-char">禁止</div>
-                <div class="pinyin">jìn zhǐ</div>
-                <div class="english">Forbidden</div>
-            </div>
-            <div class="card">
-                <button class="play-btn" onclick="speak('厕所', 'zh-CN')">🔊</button>
-                <div class="chinese-char">厕所</div>
-                <div class="pinyin">cè suǒ</div>
-                <div class="english">Bathroom/Toilet</div>
-            </div>
-            <div class="card">
-                <button class="play-btn" onclick="speak('男', 'zh-CN')">🔊</button>
-                <div class="chinese-char">男</div>
-                <div class="pinyin">nán</div>
-                <div class="english">Men</div>
-            </div>
-            <div class="card">
-                <button class="play-btn" onclick="speak('女', 'zh-CN')">🔊</button>
-                <div class="chinese-char">女</div>
-                <div class="pinyin">nǚ</div>
-                <div class="english">Women</div>
-            </div>
-            <div class="card">
-                <button class="play-btn" onclick="speak('医院', 'zh-CN')">🔊</button>
-                <div class="chinese-char">医院</div>
-                <div class="pinyin">yī yuán</div>
-                <div class="english">Hospital</div>
-            </div>
-            <div class="card">
-                <button class="play-btn" onclick="speak('火车站', 'zh-CN')">🔊</button>
-                <div class="chinese-char">火车站</div>
-                <div class="pinyin">huǒ chē zhàn</div>
-                <div class="english">Train Station</div>
-            </div>
-            <div class="card">
-                <button class="play-btn" onclick="speak('机场', 'zh-CN')">🔊</button>
-                <div class="chinese-char">机场</div>
-                <div class="pinyin">jī chǎng</div>
-                <div class="english">Airport</div>
-            </div>
-            <div class="card">
-                <button class="play-btn" onclick="speak('汽车站', 'zh-CN')">🔊</button>
-                <div class="chinese-char">汽车站</div>
-                <div class="pinyin">qì chē zhàn</div>
-                <div class="english">Bus Station</div>
-            </div>
-            <div class="card">
-                <button class="play-btn" onclick="speak('公交站', 'zh-CN')">🔊</button>
-                <div class="chinese-char">公交站</div>
-                <div class="pinyin">gōng jiāo zhàn</div>
-                <div class="english">Bus Stop</div>
-            </div>
+        <div class="language-selector">
+            <label for="languageSelect">Language:</label>
+            <select id="languageSelect">
+                <option value="laos">Laos</option>
+                <option value="china">China</option>
+            </select>
         </div>
+        <h1 id="pageTitle">Loading...</h1>
 
-        <h2>🔢 Numbers</h2>
-        <div class="character-grid">
-            <div class="card">
-                <button class="play-btn" onclick="speak('一', 'zh-CN')">🔊</button>
-                <div class="chinese-char">一</div>
-                <div class="pinyin">yī</div>
-                <div class="english">1</div>
-            </div>
-            <div class="card">
-                <button class="play-btn" onclick="speak('二', 'zh-CN')">🔊</button>
-                <div class="chinese-char">二</div>
-                <div class="pinyin">èr</div>
-                <div class="english">2</div>
-            </div>
-            <div class="card">
-                <button class="play-btn" onclick="speak('三', 'zh-CN')">🔊</button>
-                <div class="chinese-char">三</div>
-                <div class="pinyin">sān</div>
-                <div class="english">3</div>
-            </div>
-            <div class="card">
-                <button class="play-btn" onclick="speak('四', 'zh-CN')">🔊</button>
-                <div class="chinese-char">四</div>
-                <div class="pinyin">sì</div>
-                <div class="english">4</div>
-            </div>
-            <div class="card">
-                <button class="play-btn" onclick="speak('五', 'zh-CN')">🔊</button>
-                <div class="chinese-char">五</div>
-                <div class="pinyin">wǔ</div>
-                <div class="english">5</div>
-            </div>
-            <div class="card">
-                <button class="play-btn" onclick="speak('六', 'zh-CN')">🔊</button>
-                <div class="chinese-char">六</div>
-                <div class="pinyin">liù</div>
-                <img src="img/6.png" alt="Hand sign for 6" class="number-img">
-                <div class="english">6</div>
-            </div>
-            <div class="card">
-                <button class="play-btn" onclick="speak('七', 'zh-CN')">🔊</button>
-                <div class="chinese-char">七</div>
-                <div class="pinyin">qī</div>
-                <img src="img/7.png" alt="Hand sign for 7" class="number-img">
-                <div class="english">7</div>
-            </div>
-            <div class="card">
-                <button class="play-btn" onclick="speak('八', 'zh-CN')">🔊</button>
-                <div class="chinese-char">八</div>
-                <div class="pinyin">bā</div>
-                <img src="img/8.png" alt="Hand sign for 8" class="number-img">
-                <div class="english">8</div>
-            </div>
-            <div class="card">
-                <button class="play-btn" onclick="speak('九', 'zh-CN')">🔊</button>
-                <div class="chinese-char">九</div>
-                <div class="pinyin">jiǔ</div>
-                <img src="img/9.png" alt="Hand sign for 9" class="number-img">
-                <div class="english">9</div>
-            </div>
-            <div class="card">
-                <button class="play-btn" onclick="speak('十', 'zh-CN')">🔊</button>
-                <div class="chinese-char">十</div>
-                <div class="pinyin">shí</div>
-                <img src="img/10.png" alt="Hand sign for 10" class="number-img">
-                <div class="english">10</div>
-            </div>
-            <div class="card">
-                <button class="play-btn" onclick="speak('一百', 'zh-CN')">🔊</button>
-                <div class="chinese-char">一百</div>
-                <div class="pinyin">yī bǎi</div>
-                <div class="english">100</div>
-            </div>
-            <div class="card">
-                <button class="play-btn" onclick="speak('一千', 'zh-CN')">🔊</button>
-                <div class="chinese-char">一千</div>
-                <div class="pinyin">yī qiān</div>
-                <div class="english">1000</div>
-            </div>
-        </div>
+        <h2 id="essentialHeading"></h2>
+        <div class="character-grid" id="essentialGrid"></div>
 
-        <h2>💬 Simple Words</h2>
-        <div class="phrase-grid">
-            <div class="card phrase-card">
-                <button class="play-btn" onclick="speak('谢谢', 'zh-CN')">🔊</button>
-                <div class="phrase-chinese">谢谢</div>
-                <div class="pinyin">xiè xie</div>
-                <div class="english">Thank you</div>
-            </div>
-            <div class="card phrase-card">
-                <button class="play-btn" onclick="speak('请', 'zh-CN')">🔊</button>
-                <div class="phrase-chinese">请</div>
-                <div class="pinyin">qǐng</div>
-                <div class="english">Please</div>
-            </div>
-            <div class="card phrase-card">
-                <button class="play-btn" onclick="speak('这里', 'zh-CN')">🔊</button>
-                <div class="phrase-chinese">这里</div>
-                <div class="pinyin">zhè lǐ</div>
-                <div class="english">Here</div>
-            </div>
-            <div class="card phrase-card">
-                <button class="play-btn" onclick="speak('哪里', 'zh-CN')">🔊</button>
-                <div class="phrase-chinese">哪里？</div>
-                <div class="pinyin">nǎ lǐ?</div>
-                <div class="english">Where?</div>
-            </div>
-            <div class="card phrase-card">
-                <button class="play-btn" onclick="speak('水', 'zh-CN')">🔊</button>
-                <div class="phrase-chinese">水</div>
-                <div class="pinyin">shuǐ</div>
-                <div class="english">Water</div>
-            </div>
-            <div class="card phrase-card">
-                <button class="play-btn" onclick="speak('食物', 'zh-CN')">🔊</button>
-                <div class="phrase-chinese">食物</div>
-                <div class="pinyin">shí wù</div>
-                <div class="english">Food</div>
-            </div>
-            <div class="card phrase-card">
-                <button class="play-btn" onclick="speak('素食者', 'zh-CN')">🔊</button>
-                <div class="phrase-chinese">素食者</div>
-                <div class="pinyin">sù shí zhě</div>
-                <div class="english">Vegetarian</div>
-            </div>
-            <div class="card phrase-card">
-                <button class="play-btn" onclick="speak('是', 'zh-CN')">🔊</button>
-                <div class="phrase-chinese">是</div>
-                <div class="pinyin">shì</div>
-                <div class="english">Yes</div>
-            </div>
-            <div class="card phrase-card">
-                <button class="play-btn" onclick="speak('不', 'zh-CN')">🔊</button>
-                <div class="phrase-chinese">不</div>
-                <div class="pinyin">bù</div>
-                <div class="english">No</div>
-            </div>
-            <div class="card phrase-card">
-                <button class="play-btn" onclick="speak('鸡蛋', 'zh-CN')">🔊</button>
-                <div class="phrase-chinese">鸡蛋</div>
-                <div class="pinyin">jī dàn</div>
-                <div class="english">Eggs</div>
-            </div>
-            <div class="card phrase-card">
-                <button class="play-btn" onclick="speak('大', 'zh-CN')">🔊</button>
-                <div class="phrase-chinese">大</div>
-                <div class="pinyin">dà</div>
-                <div class="english">Big</div>
-            </div>
-            <div class="card phrase-card">
-                <button class="play-btn" onclick="speak('小', 'zh-CN')">🔊</button>
-                <div class="phrase-chinese">小</div>
-                <div class="pinyin">xiǎo</div>
-                <div class="english">Small</div>
-            </div>
-            <div class="card phrase-card">
-                <button class="play-btn" onclick="speak('热', 'zh-CN')">🔊</button>
-                <div class="phrase-chinese">热</div>
-                <div class="pinyin">rè</div>
-                <div class="english">Hot</div>
-            </div>
-            <div class="card phrase-card">
-                <button class="play-btn" onclick="speak('冷', 'zh-CN')">🔊</button>
-                <div class="phrase-chinese">冷</div>
-                <div class="pinyin">lěng</div>
-                <div class="english">Cold</div>
-            </div>
-        </div>
+        <h2 id="numbersHeading"></h2>
+        <div class="character-grid" id="numbersGrid"></div>
 
-        <h2>🗣️Basic Phrases</h2>
-        <div class="phrase-grid">
+        <h2 id="simpleWordsHeading"></h2>
+        <div class="phrase-grid" id="simpleWordsGrid"></div>
 
-            <div class="card phrase-card">
-                <button class="play-btn" onclick="speak('对不起', 'zh-CN')">🔊</button>
-                <div class="phrase-chinese">对不起</div>
-                <div class="pinyin">duì bu qǐ</div>
-                <div class="english">Sorry/Excuse me</div>
-            </div>
-            <div class="card phrase-card">
-                <button class="play-btn" onclick="speak('不好意思', 'zh-CN')">🔊</button>
-                <div class="phrase-chinese">不好意思</div>
-                <div class="pinyin">bù hǎo yì si</div>
-                <div class="english">Excuse me (polite)</div>
-            </div>
-            <div class="card phrase-card">
-                <button class="play-btn" onclick="speak('我不会说中文', 'zh-CN')">🔊</button>
-                <div class="phrase-chinese">我不会说中文</div>
-                <div class="pinyin">wǒ bù huì shuō zhōng wén</div>
-                <div class="english">I don't speak Chinese</div>
-            </div>
-            <div class="card phrase-card">
-                <button class="play-btn" onclick="speak('多少钱', 'zh-CN')">🔊</button>
-                <div class="phrase-chinese">多少钱？</div>
-                <div class="pinyin">duō shao qián?</div>
-                <div class="english">How much?</div>
-            </div>
-            <div class="card phrase-card">
-                <button class="play-btn" onclick="speak('帮助', 'zh-CN')">🔊</button>
-                <div class="phrase-chinese">帮助</div>
-                <div class="pinyin">bāng zhù</div>
-                <div class="english">Help</div>
-            </div>
-            <div class="card phrase-card">
-                <button class="play-btn" onclick="speak('早上好', 'zh-CN')">🔊</button>
-                <div class="phrase-chinese">早上好</div>
-                <div class="pinyin">zǎo shang hǎo</div>
-                <div class="english">Good morning</div>
-            </div>
-            <div class="card phrase-card">
-                <button class="play-btn" onclick="speak('祝你今天愉快', 'zh-CN')">🔊</button>
-                <div class="phrase-chinese">祝你今天愉快</div>
-                <div class="pinyin">zhù nǐ jīn tiān yú kuài</div>
-                <div class="english">Have a nice day</div>
-            </div>
-        </div>
+        <h2 id="basicPhrasesHeading"></h2>
+        <div class="phrase-grid" id="basicPhrasesGrid"></div>
 
-        <!-- NEW SECTION: Gemini Powered Phrase Generation -->
         <div class="gemini-section">
-            <h2>✨ Get Phrases for Any Situation ✨</h2>
-            <p class="text-gray-600 mb-4">Describe a situation you might encounter in China, and I'll generate some useful Chinese phrases for you!</p>
+            <h2 id="geminiHeading"></h2>
+            <p id="geminiDescription" class="text-gray-600 mb-4"></p>
 
             <div class="mb-4">
-                <textarea id="situationInput" placeholder="e.g., Ordering coffee at a cafe, asking for directions to the train station, checking into a hotel..."></textarea>
+                <textarea id="situationInput" placeholder=""></textarea>
             </div>
-            <button id="generatePhrasesButton">Generate Phrases</button>
+            <button id="generatePhrasesButton"></button>
 
             <div id="loadingIndicator" class="loading-indicator" style="display: none;">
                 Generating phrases... please wait.
             </div>
 
             <div id="generatedPhrasesOutput" class="generated-phrases-grid">
-                <!-- Generated phrases will be displayed here -->
             </div>
         </div>
-        <!-- END NEW SECTION -->
 
-        <h2>🎵 Mastering Chinese Tones</h2>
+        <h2 id="tonesSectionHeading"></h2>
         <div class="notes">
-            <h3>🎼 The Four Tones Explained</h3>
-            <p><strong>1st Tone (ˉ):</strong> High and flat - like singing a high note</p>
-            <p><strong>2nd Tone (ˊ):</b> Rising - like asking "what?" in English</p>
-            <p><strong>3rd Tone (ˇ):</strong> Falling then rising - like "oh" when you realize something</p>
-            <p><strong>4th Tone (ˋ):</strong> Sharp falling - like a firm "no!"</p>
-            <p><strong>Neutral Tone:</strong> Light and quick - unstressed</p>
+            <h3 id="notesHeading"></h3>
+            <div id="notesContent"></div>
         </div>
 
-        <h3>🎯 Tone Practice - "MA" Family</h3>
-        <div class="phrase-grid">
-            <div class="card phrase-card">
-                <button class="play-btn" onclick="speak('妈', 'zh-CN')">🔊</button>
-                <div class="phrase-chinese">妈</div>
-                <div class="pinyin">mā (1st tone)</div>
-                <div class="english">Mother</div>
-            </div>
-            <div class="card phrase-card">
-                <button class="play-btn" onclick="speak('麻', 'zh-CN')">🔊</button>
-                <div class="phrase-chinese">麻</div>
-                <div class="pinyin">má (2nd tone)</div>
-                <div class="english">Hemp/Numb</div>
-            </div>
-            <div class="card phrase-card">
-                <button class="play-btn" onclick="speak('马', 'zh-CN')">🔊</button>
-                <div class="phrase-chinese">马</div>
-                <div class="pinyin">mǎ (3rd tone)</div>
-                <div class="english">Horse</div>
-            </div>
-            <div class="card phrase-card">
-                <button class="play-btn" onclick="speak('骂', 'zh-CN')">🔊</button>
-                <div class="phrase-chinese">骂</div>
-                <div class="pinyin">mà (4th tone)</div>
-                <div class="english">To scold</div>
-            </div>
-        </div>
+        <h3 id="tonePracticeMaHeading"></h3>
+        <div class="phrase-grid" id="tonePracticeMaGrid"></div>
 
-        <h3>🎯 Tone Practice - "SHI" Family</h3>
-        <div class="phrase-grid">
-            <div class="card phrase-card">
-                <button class="play-btn" onclick="speak('诗', 'zh-CN')">🔊</button>
-                <div class="phrase-chinese">诗</div>
-                <div class="pinyin">shī (1st tone)</div>
-                <div class="english">Poetry</div>
-            </div>
-            <div class="card phrase-card">
-                <button class="play-btn" onclick="speak('十', 'zh-CN')">🔊</button>
-                <div class="phrase-chinese">十</div>
-                <div class="pinyin">shí (2nd tone)</div>
-                <div class="english">Ten</div>
-            </div>
-            <div class="card phrase-card">
-                <button class="play-btn" onclick="speak('使', 'zh-CN')">🔊</button>
-                <div class="phrase-chinese">使</div>
-                <div class="pinyin">shǐ (3rd tone)</div>
-                <div class="english">To use</div>
-            </div>
-            <div class="card phrase-card">
-                <button class="play-btn" onclick="speak('是', 'zh-CN')">🔊</button>
-                <div class="phrase-chinese">是</div>
-                <div class="pinyin">shì (4th tone)</div>
-                <div class="english">To be/Yes</div>
-            </div>
-        </div>
+        <h3 id="tonePracticeShiHeading"></h3>
+        <div class="phrase-grid" id="tonePracticeShiGrid"></div>
 
-        <h3>🎯 Tone Practice - "BAO" Family</h3>
-        <div class="phrase-grid">
-            <div class="card phrase-card">
-                <button class="play-btn" onclick="speak('包', 'zh-CN')">🔊</button>
-                <div class="phrase-chinese">包</div>
-                <div class="pinyin">bāo (1st tone)</div>
-                <div class="english">Bag/Package</div>
-            </div>
-            <div class="card phrase-card">
-                <button class="play-btn" onclick="speak('薄', 'zh-CN')">🔊</button>
-                <div class="phrase-chinese">薄</div>
-                <div class="pinyin">báo (2nd tone)</div>
-                <div class="english">Thin</div>
-            </div>
-            <div class="card phrase-card">
-                <button class="play-btn" onclick="speak('保', 'zh-CN')">🔊</button>
-                <div class="phrase-chinese">保</div>
-                <div class="pinyin">bǎo (3rd tone)</div>
-                <div class="english">To protect</div>
-            </div>
-            <div class="card phrase-card">
-                <button class="play-btn" onclick="speak('报', 'zh-CN')">🔊</button>
-                <div class="phrase-chinese">报</div>
-                <div class="pinyin">bào (4th tone)</div>
-                <div class="english">Newspaper/Report</div>
-            </div>
-        </div>
-
+        <h3 id="tonePracticeBaoHeading"></h3>
+        <div class="phrase-grid" id="tonePracticeBaoGrid"></div>
     </div>
 
     <script>
+        const languageContent = {
+            laos: {
+                htmlLang: 'lo',
+                documentTitle: 'Basic Lao Travel Guide',
+                pageTitle: '🇱🇦 Basic Lao Survival Kit',
+                essentialHeading: '🚪 Essential Signs & Places',
+                numbersHeading: '🔢 Numbers',
+                simpleWordsHeading: '💬 Simple Words',
+                basicPhrasesHeading: '🗣️ Basic Phrases',
+                tonesSectionHeading: '🎵 Mastering Lao Tones',
+                notesHeading: '🎼 The Six Tones Explained',
+                notesParagraphs: [
+                    '<strong>Mid Tone (˧):</strong> Steady and level — like calmly saying "maa".',
+                    '<strong>Low Tone (˩):</strong> Starts low and stays low — relaxed and soft.',
+                    '<strong>High Tone (˦):</strong> Clear and high — imagine calling to someone across the street.',
+                    '<strong>Falling Tone (˥˩):</strong> Starts high then drops — similar to a firm command.',
+                    '<strong>Rising Tone (˩˥):</strong> Climbs upward — like asking a surprised question.',
+                    '<strong>Low Rising Tone (˩˧):</strong> Begins low then lifts gently — smooth and encouraging.'
+                ],
+                geminiHeading: '✨ Get Phrases for Any Situation ✨',
+                geminiDescription: 'Describe a situation you might encounter in Laos, and I'll generate useful Lao phrases for you!',
+                geminiPlaceholder: 'e.g., Ordering khao soi in Luang Prabang, renting a scooter, asking for a guesthouse... ',
+                geminiButtonText: 'Generate Phrases',
+                geminiPrompt: situation => `Generate 3 to 5 helpful Lao phrases for a traveler who is "${situation}". Provide Lao script, a simple Latin pronunciation with tone hints, and the English meaning for each phrase. Format the response as a JSON array of objects with the keys 'nativeScript', 'pronunciation', and 'englishMeaning'.`,
+                generatedSpeechLocale: 'lo-LA',
+                essentialCards: [
+                    { word: 'ທາງອອກ', pronunciation: 'thāng òk', english: 'Exit', speechText: 'ທາງອອກ' },
+                    { word: 'ທາງເຂົ້າ', pronunciation: 'thāng khào', english: 'Entrance', speechText: 'ທາງເຂົ້າ' },
+                    { word: 'ຫ້າມ', pronunciation: 'hâam', english: 'Forbidden', speechText: 'ຫ້າມ' },
+                    { word: 'ຫ້ອງນ້ຳ', pronunciation: 'hông nám', english: 'Bathroom / Toilet', speechText: 'ຫ້ອງນ້ຳ' },
+                    { word: 'ຜູ້ຊາຍ', pronunciation: 'phûu saai', english: 'Men', speechText: 'ຜູ້ຊາຍ' },
+                    { word: 'ຜູ້ຍິງ', pronunciation: 'phûu ying', english: 'Women', speechText: 'ຜູ້ຍິງ' },
+                    { word: 'ໂຮງໝໍ', pronunciation: 'hōng mɔ̌ɔ', english: 'Hospital', speechText: 'ໂຮງໝໍ' },
+                    { word: 'ສະຖານີລົດໄຟ', pronunciation: 'sa thǎa nī lot fai', english: 'Train Station', speechText: 'ສະຖານີລົດໄຟ' },
+                    { word: 'ສະນາມບິນ', pronunciation: 'sa nǎam bin', english: 'Airport', speechText: 'ສະນາມບິນ' },
+                    { word: 'ສະຖານີລົດເມ', pronunciation: 'sa thǎa nī lot mé', english: 'Bus Station', speechText: 'ສະຖານີລົດເມ' },
+                    { word: 'ປ້າຍລົດເມ', pronunciation: 'bpâai lot mé', english: 'Bus Stop', speechText: 'ປ້າຍລົດເມ' }
+                ],
+                numberCards: [
+                    { word: 'ໜຶ່ງ', pronunciation: 'nʉ̀ng', english: '1' },
+                    { word: 'ສອງ', pronunciation: 'sɔ̌ɔng', english: '2' },
+                    { word: 'ສາມ', pronunciation: 'sǎam', english: '3' },
+                    { word: 'ສີ່', pronunciation: 'sìi', english: '4' },
+                    { word: 'ຫ້າ', pronunciation: 'hâa', english: '5' },
+                    { word: 'ຫົກ', pronunciation: 'hók', english: '6', image: 'img/6.png', imageAlt: 'Hand sign for 6' },
+                    { word: 'ເຈັດ', pronunciation: 'jèt', english: '7', image: 'img/7.png', imageAlt: 'Hand sign for 7' },
+                    { word: 'ແປດ', pronunciation: 'bpàet', english: '8', image: 'img/8.png', imageAlt: 'Hand sign for 8' },
+                    { word: 'ເກົ້າ', pronunciation: 'gâo', english: '9', image: 'img/9.png', imageAlt: 'Hand sign for 9' },
+                    { word: 'ສິບ', pronunciation: 'sìp', english: '10', image: 'img/10.png', imageAlt: 'Hand sign for 10' },
+                    { word: 'ຮ້ອຍ', pronunciation: 'hɔ́ɔi', english: '100' },
+                    { word: 'ພັນ', pronunciation: 'phan', english: '1000' }
+                ],
+                simpleWords: [
+                    { word: 'ຂອບໃຈ', pronunciation: 'khɔ̀ɔp jai', english: 'Thank you' },
+                    { word: 'ກະລຸນາ', pronunciation: 'ka lù na', english: 'Please' },
+                    { word: 'ຢູ່ນີ້', pronunciation: 'yùu nī', english: 'Here' },
+                    { word: 'ຢູ່ໃສ?', pronunciation: 'yùu sai?', english: 'Where?' },
+                    { word: 'ນ້ຳ', pronunciation: 'nám', english: 'Water' },
+                    { word: 'ອາຫານ', pronunciation: 'aa hǎan', english: 'Food' },
+                    { word: 'ມັງສະວິລັດ', pronunciation: 'mang sa wi lat', english: 'Vegetarian' },
+                    { word: 'ແມ່ນ', pronunciation: 'mâen', english: 'Yes' },
+                    { word: 'ບໍ່', pronunciation: 'bòr', english: 'No' },
+                    { word: 'ໄຂ່', pronunciation: 'khài', english: 'Eggs' },
+                    { word: 'ໃຫຍ່', pronunciation: 'yài', english: 'Big' },
+                    { word: 'ນ້ອຍ', pronunciation: 'nɔ́i', english: 'Small' },
+                    { word: 'ຮ້ອນ', pronunciation: 'hɔ́ɔn', english: 'Hot' },
+                    { word: 'ໜາວ', pronunciation: 'nǎao', english: 'Cold' }
+                ],
+                basicPhrases: [
+                    { word: 'ຂໍໂທດ', pronunciation: 'khɔ̌ɔ thôot', english: 'Sorry / Excuse me' },
+                    { word: 'ຂໍອະໄພ', pronunciation: 'khɔ̌ɔ a phai', english: 'Excuse me (polite)' },
+                    { word: 'ຂ້ອຍເວົ້າລາວບໍ່ເປັນ', pronunciation: 'khɔ̀i wao laao bòr pen', english: "I don't speak Lao" },
+                    { word: 'ລາຄາເທົ່າໃດ?', pronunciation: 'laa khaa thao dai?', english: 'How much?' },
+                    { word: 'ຊ່ວຍດ້ວຍ!', pronunciation: 'sûai dûai!', english: 'Help!' },
+                    { word: 'ສະບາຍດີເຊົ້າ', pronunciation: 'sa baai di sǎo', english: 'Good morning' },
+                    { word: 'ຂໍໃຫ້ມື້ນີ້ດີໆ', pronunciation: 'khɔ̌ɔ hai mûu nī dii dii', english: 'Have a nice day' }
+                ],
+                tonePracticeMaHeading: '🎯 Tone Practice - "MA" Family',
+                tonePracticeMa: [
+                    { word: 'ມາ', pronunciation: 'maa (mid tone)', english: 'Come' },
+                    { word: 'ມ້າ', pronunciation: 'máa (high tone)', english: 'Horse' },
+                    { word: 'ໝາ', pronunciation: 'mǎa (low tone)', english: 'Dog' },
+                    { word: 'ຫມາກ', pronunciation: 'mâak (falling tone)', english: 'Fruit' }
+                ],
+                tonePracticeShiHeading: '🎯 Tone Practice - "SAI" Family',
+                tonePracticeShi: [
+                    { word: 'ໄຊ', pronunciation: 'sai (high tone)', english: 'Victory' },
+                    { word: 'ໃສ', pronunciation: 'sǎi (rising tone)', english: 'Where' },
+                    { word: 'ໃສ່', pronunciation: 'sài (falling tone)', english: 'To put in' },
+                    { word: 'ສາຍ', pronunciation: 'sǎai (mid-rising)', english: 'Line / Late' }
+                ],
+                tonePracticeBaoHeading: '🎯 Tone Practice - "BA" Family',
+                tonePracticeBao: [
+                    { word: 'ບາ', pronunciation: 'baa (mid tone)', english: 'Bar' },
+                    { word: 'ບ້າ', pronunciation: 'bâa (high tone)', english: 'Crazy' },
+                    { word: 'ບ້ານ', pronunciation: 'bâan (falling tone)', english: 'Village' },
+                    { word: 'ບ່າ', pronunciation: 'bàa (low tone)', english: 'Shoulder' }
+                ]
+            },
+            china: {
+                htmlLang: 'zh',
+                documentTitle: 'Basic Chinese Learning Guide',
+                pageTitle: '🇨🇳 Basic Chinese Survival Kit',
+                essentialHeading: '🚪 Essential Signs & Places',
+                numbersHeading: '🔢 Numbers',
+                simpleWordsHeading: '💬 Simple Words',
+                basicPhrasesHeading: '🗣️ Basic Phrases',
+                tonesSectionHeading: '🎵 Mastering Chinese Tones',
+                notesHeading: '🎼 The Four Tones Explained',
+                notesParagraphs: [
+                    '<strong>1st Tone (ˉ):</strong> High and flat - like singing a high note',
+                    '<strong>2nd Tone (ˊ):</strong> Rising - like asking "what?" in English',
+                    '<strong>3rd Tone (ˇ):</strong> Falling then rising - like "oh" when you realize something',
+                    '<strong>4th Tone (ˋ):</strong> Sharp falling - like a firm "no!"',
+                    '<strong>Neutral Tone:</strong> Light and quick - unstressed'
+                ],
+                geminiHeading: '✨ Get Phrases for Any Situation ✨',
+                geminiDescription: 'Describe a situation you might encounter in China, and I'll generate useful Chinese phrases for you!',
+                geminiPlaceholder: 'e.g., Ordering coffee at a cafe, asking for directions to the train station, checking into a hotel...',
+                geminiButtonText: 'Generate Phrases',
+                geminiPrompt: situation => `Generate 3 to 5 common Chinese phrases for a traveler who is "${situation}". Provide the Chinese characters, Pinyin with tone marks, and the English meaning for each phrase. Format the response as a JSON array of objects with the keys 'nativeScript', 'pronunciation', and 'englishMeaning'.`,
+                generatedSpeechLocale: 'zh-CN',
+                essentialCards: [
+                    { word: '出口', pronunciation: 'chū kǒu', english: 'Exit', speechText: '出口' },
+                    { word: '入口', pronunciation: 'rù kǒu', english: 'Entrance', speechText: '入口' },
+                    { word: '禁止', pronunciation: 'jìn zhǐ', english: 'Forbidden', speechText: '禁止' },
+                    { word: '厕所', pronunciation: 'cè suǒ', english: 'Bathroom/Toilet', speechText: '厕所' },
+                    { word: '男', pronunciation: 'nán', english: 'Men', speechText: '男' },
+                    { word: '女', pronunciation: 'nǚ', english: 'Women', speechText: '女' },
+                    { word: '医院', pronunciation: 'yī yuàn', english: 'Hospital', speechText: '医院' },
+                    { word: '火车站', pronunciation: 'huǒ chē zhàn', english: 'Train Station', speechText: '火车站' },
+                    { word: '机场', pronunciation: 'jī chǎng', english: 'Airport', speechText: '机场' },
+                    { word: '汽车站', pronunciation: 'qì chē zhàn', english: 'Bus Station', speechText: '汽车站' },
+                    { word: '公交站', pronunciation: 'gōng jiāo zhàn', english: 'Bus Stop', speechText: '公交站' }
+                ],
+                numberCards: [
+                    { word: '一', pronunciation: 'yī', english: '1' },
+                    { word: '二', pronunciation: 'èr', english: '2' },
+                    { word: '三', pronunciation: 'sān', english: '3' },
+                    { word: '四', pronunciation: 'sì', english: '4' },
+                    { word: '五', pronunciation: 'wǔ', english: '5' },
+                    { word: '六', pronunciation: 'liù', english: '6', image: 'img/6.png', imageAlt: 'Hand sign for 6' },
+                    { word: '七', pronunciation: 'qī', english: '7', image: 'img/7.png', imageAlt: 'Hand sign for 7' },
+                    { word: '八', pronunciation: 'bā', english: '8', image: 'img/8.png', imageAlt: 'Hand sign for 8' },
+                    { word: '九', pronunciation: 'jiǔ', english: '9', image: 'img/9.png', imageAlt: 'Hand sign for 9' },
+                    { word: '十', pronunciation: 'shí', english: '10', image: 'img/10.png', imageAlt: 'Hand sign for 10' },
+                    { word: '一百', pronunciation: 'yī bǎi', english: '100' },
+                    { word: '一千', pronunciation: 'yī qiān', english: '1000' }
+                ],
+                simpleWords: [
+                    { word: '谢谢', pronunciation: 'xiè xie', english: 'Thank you' },
+                    { word: '请', pronunciation: 'qǐng', english: 'Please' },
+                    { word: '这里', pronunciation: 'zhè lǐ', english: 'Here' },
+                    { word: '哪里？', pronunciation: 'nǎ lǐ?', english: 'Where?' },
+                    { word: '水', pronunciation: 'shuǐ', english: 'Water' },
+                    { word: '食物', pronunciation: 'shí wù', english: 'Food' },
+                    { word: '素食者', pronunciation: 'sù shí zhě', english: 'Vegetarian' },
+                    { word: '是', pronunciation: 'shì', english: 'Yes' },
+                    { word: '不', pronunciation: 'bù', english: 'No' },
+                    { word: '鸡蛋', pronunciation: 'jī dàn', english: 'Eggs' },
+                    { word: '大', pronunciation: 'dà', english: 'Big' },
+                    { word: '小', pronunciation: 'xiǎo', english: 'Small' },
+                    { word: '热', pronunciation: 'rè', english: 'Hot' },
+                    { word: '冷', pronunciation: 'lěng', english: 'Cold' }
+                ],
+                basicPhrases: [
+                    { word: '对不起', pronunciation: 'duì bu qǐ', english: 'Sorry/Excuse me' },
+                    { word: '不好意思', pronunciation: 'bù hǎo yì si', english: 'Excuse me (polite)' },
+                    { word: '我不会说中文', pronunciation: 'wǒ bù huì shuō zhōng wén', english: "I don't speak Chinese" },
+                    { word: '多少钱？', pronunciation: 'duō shao qián?', english: 'How much?' },
+                    { word: '帮助', pronunciation: 'bāng zhù', english: 'Help' },
+                    { word: '早上好', pronunciation: 'zǎo shang hǎo', english: 'Good morning' },
+                    { word: '祝你今天愉快', pronunciation: 'zhù nǐ jīn tiān yú kuài', english: 'Have a nice day' }
+                ],
+                tonePracticeMaHeading: '🎯 Tone Practice - "MA" Family',
+                tonePracticeMa: [
+                    { word: '妈', pronunciation: 'mā (1st tone)', english: 'Mother' },
+                    { word: '麻', pronunciation: 'má (2nd tone)', english: 'Hemp/Numb' },
+                    { word: '马', pronunciation: 'mǎ (3rd tone)', english: 'Horse' },
+                    { word: '骂', pronunciation: 'mà (4th tone)', english: 'To scold' }
+                ],
+                tonePracticeShiHeading: '🎯 Tone Practice - "SHI" Family',
+                tonePracticeShi: [
+                    { word: '诗', pronunciation: 'shī (1st tone)', english: 'Poetry' },
+                    { word: '十', pronunciation: 'shí (2nd tone)', english: 'Ten' },
+                    { word: '使', pronunciation: 'shǐ (3rd tone)', english: 'To use' },
+                    { word: '是', pronunciation: 'shì (4th tone)', english: 'To be/Yes' }
+                ],
+                tonePracticeBaoHeading: '🎯 Tone Practice - "BAO" Family',
+                tonePracticeBao: [
+                    { word: '包', pronunciation: 'bāo (1st tone)', english: 'Bag/Package' },
+                    { word: '薄', pronunciation: 'báo (2nd tone)', english: 'Thin' },
+                    { word: '保', pronunciation: 'bǎo (3rd tone)', english: 'To protect' },
+                    { word: '报', pronunciation: 'bào (4th tone)', english: 'Newspaper/Report' }
+                ]
+            }
+        };
+
+        let currentLanguage = 'laos';
+
+        function renderCards(containerId, cards, options = {}) {
+            const container = document.getElementById(containerId);
+            container.innerHTML = '';
+
+            cards.forEach(card => {
+                const cardElement = document.createElement('div');
+                cardElement.className = 'card' + (options.additionalCardClass ? ` ${options.additionalCardClass}` : '');
+
+                const button = document.createElement('button');
+                button.className = 'play-btn';
+                const speechText = card.speechText || card.word;
+                const voice = options.voiceLocale || languageContent[currentLanguage].generatedSpeechLocale;
+                button.addEventListener('click', () => speak(speechText, voice));
+                button.textContent = '🔊';
+                cardElement.appendChild(button);
+
+                const wordDiv = document.createElement('div');
+                wordDiv.className = options.wordClass || 'chinese-char';
+                wordDiv.textContent = card.word;
+                cardElement.appendChild(wordDiv);
+
+                const pronunciationDiv = document.createElement('div');
+                pronunciationDiv.className = 'pinyin';
+                pronunciationDiv.textContent = card.pronunciation;
+                cardElement.appendChild(pronunciationDiv);
+
+                if (card.image) {
+                    const img = document.createElement('img');
+                    img.src = card.image;
+                    img.alt = card.imageAlt || `Hand sign for ${card.english}`;
+                    img.className = 'number-img';
+                    cardElement.appendChild(img);
+                }
+
+                const englishDiv = document.createElement('div');
+                englishDiv.className = 'english';
+                englishDiv.textContent = card.english;
+                cardElement.appendChild(englishDiv);
+
+                container.appendChild(cardElement);
+            });
+        }
+
+        function renderLanguage(lang) {
+            currentLanguage = lang;
+            const content = languageContent[lang];
+
+            document.getElementById('languageSelect').value = lang;
+            document.documentElement.lang = content.htmlLang;
+            document.title = content.documentTitle;
+            document.getElementById('pageTitle').textContent = content.pageTitle;
+            document.getElementById('essentialHeading').textContent = content.essentialHeading;
+            document.getElementById('numbersHeading').textContent = content.numbersHeading;
+            document.getElementById('simpleWordsHeading').textContent = content.simpleWordsHeading;
+            document.getElementById('basicPhrasesHeading').textContent = content.basicPhrasesHeading;
+            document.getElementById('tonesSectionHeading').textContent = content.tonesSectionHeading;
+            document.getElementById('notesHeading').textContent = content.notesHeading;
+            document.getElementById('geminiHeading').textContent = content.geminiHeading;
+            document.getElementById('geminiDescription').textContent = content.geminiDescription;
+            document.getElementById('situationInput').placeholder = content.geminiPlaceholder;
+            document.getElementById('generatePhrasesButton').textContent = content.geminiButtonText;
+            document.getElementById('tonePracticeMaHeading').textContent = content.tonePracticeMaHeading;
+            document.getElementById('tonePracticeShiHeading').textContent = content.tonePracticeShiHeading;
+            document.getElementById('tonePracticeBaoHeading').textContent = content.tonePracticeBaoHeading;
+
+            const notesContent = document.getElementById('notesContent');
+            notesContent.innerHTML = '';
+            content.notesParagraphs.forEach(text => {
+                const p = document.createElement('p');
+                p.innerHTML = text;
+                notesContent.appendChild(p);
+            });
+
+            renderCards('essentialGrid', content.essentialCards, { wordClass: 'chinese-char', voiceLocale: content.generatedSpeechLocale });
+            renderCards('numbersGrid', content.numberCards, { wordClass: 'chinese-char', voiceLocale: content.generatedSpeechLocale });
+            renderCards('simpleWordsGrid', content.simpleWords, { wordClass: 'phrase-chinese', additionalCardClass: 'phrase-card', voiceLocale: content.generatedSpeechLocale });
+            renderCards('basicPhrasesGrid', content.basicPhrases, { wordClass: 'phrase-chinese', additionalCardClass: 'phrase-card', voiceLocale: content.generatedSpeechLocale });
+            renderCards('tonePracticeMaGrid', content.tonePracticeMa, { wordClass: 'phrase-chinese', additionalCardClass: 'phrase-card', voiceLocale: content.generatedSpeechLocale });
+            renderCards('tonePracticeShiGrid', content.tonePracticeShi, { wordClass: 'phrase-chinese', additionalCardClass: 'phrase-card', voiceLocale: content.generatedSpeechLocale });
+            renderCards('tonePracticeBaoGrid', content.tonePracticeBao, { wordClass: 'phrase-chinese', additionalCardClass: 'phrase-card', voiceLocale: content.generatedSpeechLocale });
+
+            document.getElementById('generatedPhrasesOutput').innerHTML = '';
+        }
+
+        document.getElementById('languageSelect').addEventListener('change', (event) => {
+            renderLanguage(event.target.value);
+        });
+
         let isMobileApp = false;
 
         function speak(text, lang) {
-            // Log this line FIRST to confirm the function is being called
-            console.log("speakText called with:", text, lang);
+            console.log('speakText called with:', text, lang);
 
-            // Try speechSynthesis first (works on desktop)
             if (typeof speechSynthesis !== 'undefined' && speechSynthesis) {
                 try {
                     speechSynthesis.cancel();
                     const utterance = new SpeechSynthesisUtterance(text);
                     utterance.lang = lang;
                     utterance.rate = 0.8;
-                    
+
                     const voices = speechSynthesis.getVoices();
-                    const chineseVoice = voices.find(voice => 
-                        voice.lang.includes('zh') || 
-                        voice.lang.includes('CN') ||
-                        voice.name.includes('Chinese')
-                    );
-                    
-                    if (chineseVoice) {
-                        utterance.voice = chineseVoice;
-                        console.log("Using voice:", chineseVoice.name);
+                    const matchingVoice = voices.find(voice => voice.lang.includes(lang.split('-')[0]) || (lang.split('-')[1] && voice.lang.includes(lang.split('-')[1])) || voice.name.toLowerCase().includes(lang.split('-')[0] === 'zh' ? 'chinese' : 'lao'));
+
+                    if (matchingVoice) {
+                        utterance.voice = matchingVoice;
+                        console.log('Using voice:', matchingVoice.name);
                     } else {
-                        console.warn("No specific Chinese voice ('zh-CN') found. Using default voice for language, which may vary or be absent.");
-                        // Only show the message box if the voices have had a chance to load
+                        console.warn('No specific voice found for', lang, '. Using default voice for language, which may vary or be absent.');
                         if (speechSynthesis.getVoices().length > 0) {
-                            showMessageBox("No Chinese Voice Found", "No Chinese voice found on your system/browser. Audio may not play or may use a generic voice. Please check your browser's language settings.");
+                            showMessageBox('No Voice Found', `No dedicated voice for ${lang} found on your system/browser. Audio may not play or may use a generic voice. Please check your browser's language settings.`);
                         }
                     }
-                    
+
                     utterance.onstart = () => console.log('Speech started for:', text);
                     utterance.onend = () => console.log('Speech finished for:', text);
                     utterance.onerror = (event) => {
                         console.error('Speech synthesis error:', event.error, event);
                         let errorMessage = `Failed to play audio for "${text}". Error: ${event.error}.`;
                         if (event.error === 'network') {
-                            errorMessage += " This might be a network issue or missing language data.";
+                            errorMessage += ' This might be a network issue or missing language data.';
                         } else if (event.error === 'synthesis-failed') {
-                            errorMessage += " The browser's speech synthesis failed. Ensure a Chinese voice is installed and enabled in your OS/browser settings.";
+                            errorMessage += " The browser's speech synthesis failed. Ensure a suitable voice is installed and enabled in your OS/browser settings.";
                         } else if (event.error === 'not-allowed') {
                             errorMessage += " Audio playback might be blocked by your browser's autoplay policy. Try interacting with the page more, or check browser settings.";
                         } else if (event.error === 'voice-unavailable') {
-                            errorMessage += " A suitable Chinese voice is not available. Please check your browser's language settings or install a Chinese language pack for your operating system.";
+                            errorMessage += " A suitable voice is not available. Please check your browser's language settings or install the language pack for your operating system.";
                         }
-                        showMessageBox("Audio Playback Error", errorMessage + " Please consider trying a different browser (e.g., Chrome, Edge) or checking your system's language settings.", true);
+                        showMessageBox('Audio Playback Error', errorMessage + ' Please consider trying a different browser (e.g., Chrome, Edge) or checking your system's language settings.', true);
                     };
 
                     speechSynthesis.speak(utterance);
                     return;
                 } catch (error) {
                     console.log('speechSynthesis failed:', error);
-                    showMessageBox("Audio Playback Issue", "There was an issue with audio playback via Web Speech API. Falling back to mobile mode.", true);
+                    showMessageBox('Audio Playback Issue', 'There was an issue with audio playback via Web Speech API. Falling back to mobile mode.', true);
                 }
             }
 
-            // Fallback for mobile: Enhanced visual + haptic feedback
             showEnhancedFeedback(text);
         }
 
         function showEnhancedFeedback(text) {
-            // Try haptic feedback if available
             if (navigator.vibrate) {
-                navigator.vibrate([50, 50, 50]); // Short vibration pattern
+                navigator.vibrate([50, 50, 50]);
             }
 
-            // Create enhanced visual feedback
             const feedbackDiv = document.createElement('div');
             feedbackDiv.style.cssText = `
                 position: fixed;
@@ -670,7 +615,7 @@
                 border: 3px solid white;
                 min-width: 200px;
             `;
-            
+
             feedbackDiv.innerHTML = `
                 <div style="margin-bottom: 15px;">${text}</div>
                 <div style="font-size: 0.4em; opacity: 0.9;">
@@ -678,12 +623,11 @@
                     📱 Paste in Google Translate
                 </div>
             `;
-            
+
             document.body.appendChild(feedbackDiv);
-            
-            // Make it copyable on long press
+
             let longPressTimer;
-            
+
             feedbackDiv.addEventListener('touchstart', (e) => {
                 e.preventDefault();
                 longPressTimer = setTimeout(() => {
@@ -691,24 +635,22 @@
                     showCopyConfirmation();
                 }, 800);
             });
-            
+
             feedbackDiv.addEventListener('touchend', () => {
                 clearTimeout(longPressTimer);
             });
-            
-            // Also work for mouse events (desktop)
-            feedbackDiv.addEventListener('mousedown', (e) => {
+
+            feedbackDiv.addEventListener('mousedown', () => {
                 longPressTimer = setTimeout(() => {
                     copyToClipboard(text);
                     showCopyConfirmation();
                 }, 800);
             });
-            
+
             feedbackDiv.addEventListener('mouseup', () => {
                 clearTimeout(longPressTimer);
             });
-            
-            // Remove after 3 seconds
+
             setTimeout(() => {
                 if (feedbackDiv.parentNode) {
                     feedbackDiv.style.opacity = '0';
@@ -728,7 +670,6 @@
                 if (navigator.clipboard && navigator.clipboard.writeText) {
                     navigator.clipboard.writeText(text);
                 } else {
-                    // Fallback for older browsers
                     const textArea = document.createElement('textarea');
                     textArea.value = text;
                     textArea.style.position = 'fixed';
@@ -759,9 +700,9 @@
                 animation: slideDown 0.3s ease-out;
             `;
             confirmDiv.innerHTML = '✅ Copied! Paste in Google Translate';
-            
+
             document.body.appendChild(confirmDiv);
-            
+
             setTimeout(() => {
                 if (confirmDiv.parentNode) {
                     confirmDiv.parentNode.removeChild(confirmDiv);
@@ -769,7 +710,6 @@
             }, 2000);
         }
 
-        // Custom Message Box (replacing alert() and window.alert())
         function showMessageBox(title, message, isError = false) {
             let messageBox = document.getElementById('customMessageBox');
             if (!messageBox) {
@@ -791,116 +731,80 @@
             messageBox.classList.remove('hidden');
         }
 
-
-        // Enhanced CSS animations
         const style = document.createElement('style');
         style.textContent = `
             @keyframes expandPulse {
-                0% { 
-                    transform: translate(-50%, -50%) scale(0.5); 
-                    opacity: 0; 
+                0% {
+                    transform: translate(-50%, -50%) scale(0.5);
+                    opacity: 0;
                 }
-                60% { 
-                    transform: translate(-50%, -50%) scale(1.05); 
-                    opacity: 1; 
+                60% {
+                    transform: translate(-50%, -50%) scale(1.05);
+                    opacity: 1;
                 }
-                100% { 
-                    transform: translate(-50%, -50%) scale(1); 
-                    opacity: 1; 
+                100% {
+                    transform: translate(-50%, -50%) scale(1);
+                    opacity: 1;
                 }
             }
-            
+
             @keyframes slideDown {
-                0% { 
-                    transform: translateX(-50%) translateY(-20px); 
-                    opacity: 0; 
+                0% {
+                    transform: translateX(-50%) translateY(-20px);
+                    opacity: 0;
                 }
-                100% { 
-                    transform: translateX(-50%) translateY(0); 
-                    opacity: 1; 
+                100% {
+                    transform: translateX(-50%) translateY(0);
+                    opacity: 1;
                 }
             }
-            
+
             .play-btn:active {
                 transform: scale(0.95);
             }
         `;
         document.head.appendChild(style);
 
-        // Detect mobile app and show helpful notice
-        /*
-        document.addEventListener('DOMContentLoaded', function() {
-            isMobileApp = typeof speechSynthesis === 'undefined' || !window.speechSynthesis;
-            
-            if (isMobileApp) {
-                const container = document.querySelector('.container');
-                const mobileNotice = document.createElement('div');
-                mobileNotice.className = 'notes';
-                mobileNotice.style.background = '#e6fffa';
-                mobileNotice.style.borderColor = '#38b2ac';
-                mobileNotice.innerHTML = `
-                    <h3>📱 Mobile App Mode</h3>
-                    <p><strong>Audio Alternative:</strong> Tap any 🔊 button to see the Chinese text large, then:</p>
-                    <p>🔹 <strong>Long-press</strong> the popup to copy the text</p>
-                    <p>🔹 <strong>Paste</strong> into Google Translate app for pronunciation</p>
-                    <p>🔹 Or use any Chinese dictionary app with TTS</p>
-                    <p><em>This gives you the same pronunciation practice on-the-go!</em></p>
-                `;
-                // Insert after the first child (h1) to keep it near the top
-                container.insertBefore(mobileNotice, container.children[1]);
-            }
-        });
-        */
-        // Load voices when available
         if (typeof speechSynthesis !== 'undefined' && speechSynthesis) {
-            speechSynthesis.onvoiceschanged = function() {
-                // Voices loaded
-            };
+            speechSynthesis.onvoiceschanged = function() {};
         }
 
-        // --- Gemini API Integration Logic ---
         document.getElementById('generatePhrasesButton').addEventListener('click', async () => {
             const situation = document.getElementById('situationInput').value.trim();
             const outputDiv = document.getElementById('generatedPhrasesOutput');
             const loadingIndicator = document.getElementById('loadingIndicator');
+            const content = languageContent[currentLanguage];
 
             if (!situation) {
                 outputDiv.innerHTML = '<p style="color: #c53030; text-align: center;">Please describe a situation to generate phrases.</p>';
                 return;
             }
 
-            // Show loading indicator and clear previous output
-            loadingIndicator.style.display = 'block'; // Show loading
-            outputDiv.innerHTML = ''; // Clear previous results
-            
-            try {
-                // Prepare the prompt for the LLM
-                let chatHistory = [];
-                const prompt = `Generate 3 to 5 common Chinese phrases for a traveler who is "${situation}". Provide the Chinese characters, Pinyin with tone marks, and English meaning for each phrase. Format the response as a JSON array of objects, where each object has 'chinesePhrase', 'pinyin', and 'englishMeaning' fields. Ensure pinyin includes tone marks (e.g., nǐ hǎo, xièxie).`;
-                chatHistory.push({ role: "user", parts: [{ text: prompt }] });
+            loadingIndicator.style.display = 'block';
+            outputDiv.innerHTML = '';
 
-                // Define the payload with the structured response schema
+            try {
+                const prompt = content.geminiPrompt(situation);
                 const payload = {
-                    contents: chatHistory,
+                    contents: [{ role: 'user', parts: [{ text: prompt }] }],
                     generationConfig: {
-                        responseMimeType: "application/json",
+                        responseMimeType: 'application/json',
                         responseSchema: {
-                            type: "ARRAY",
+                            type: 'ARRAY',
                             items: {
-                                type: "OBJECT",
+                                type: 'OBJECT',
                                 properties: {
-                                    "chinesePhrase": { "type": "STRING" },
-                                    "pinyin": { "type": "STRING" },
-                                    "englishMeaning": { "type": "STRING" }
+                                    'nativeScript': { type: 'STRING' },
+                                    'pronunciation': { type: 'STRING' },
+                                    'englishMeaning': { type: 'STRING' }
                                 },
-                                "required": ["chinesePhrase", "pinyin", "englishMeaning"]
+                                required: ['nativeScript', 'pronunciation', 'englishMeaning']
                             }
                         }
                     }
                 };
 
-                // IMPORTANT: Replace "" with your actual Gemini API key for deployment!
-                const apiKey = "AIzaSyAN6xQKZY37wPXc4xfe1IlOgNOGh5wCd9g"; 
+                const apiKey = 'AIzaSyAN6xQKZY37wPXc4xfe1IlOgNOGh5wCd9g';
                 const apiUrl = `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash:generateContent?key=${apiKey}`;
 
                 const response = await fetch(apiUrl, {
@@ -912,24 +816,23 @@
                 if (!response.ok) {
                     const errorData = await response.json();
                     console.error('API Error:', errorData);
-                    outputDiv.innerHTML = `<p style="color: #c53030; text-align: center;">Error generating phrases: ${errorData.error.message || 'Unknown error'}</p>`;
+                    outputDiv.innerHTML = `<p style="color: #c53030; text-align: center;">Error generating phrases: ${errorData.error?.message || 'Unknown error'}</p>`;
                     return;
                 }
 
                 const result = await response.json();
 
-                // Check if the response structure is valid
                 if (result.candidates && result.candidates.length > 0 &&
                     result.candidates[0].content && result.candidates[0].content.parts &&
                     result.candidates[0].content.parts.length > 0) {
-                    
+
                     const jsonString = result.candidates[0].content.parts[0].text;
                     let generatedPhrases = [];
                     try {
                         generatedPhrases = JSON.parse(jsonString);
                     } catch (parseError) {
                         console.error('Failed to parse JSON from LLM:', parseError);
-                        console.log('Raw LLM response:', jsonString); // Log raw response for debugging
+                        console.log('Raw LLM response:', jsonString);
                         outputDiv.innerHTML = '<p style="color: #c53030; text-align: center;">Could not understand the generated phrases. Please try again or refine your request.</p>';
                         return;
                     }
@@ -937,13 +840,35 @@
                     if (generatedPhrases.length > 0) {
                         generatedPhrases.forEach(phrase => {
                             const phraseItem = document.createElement('div');
-                            phraseItem.className = 'card phrase-card'; // Reuse existing card styles
-                            phraseItem.innerHTML = `
-                                <button class="play-btn" onclick="speak('${phrase.pinyin.replace(/'/g, "\\'")}', 'zh-CN')">🔊</button>
-                                <div class="phrase-chinese">${phrase.chinesePhrase}</div>
-                                <div class="pinyin">${phrase.pinyin}</div>
-                                <div class="english">${phrase.englishMeaning}</div>
-                            `;
+                            phraseItem.className = 'card phrase-card';
+                            const nativeScript = phrase.nativeScript || phrase.chinesePhrase || phrase.text || '';
+                            const pronunciation = phrase.pronunciation || phrase.pinyin || phrase.romanization || '';
+                            const englishMeaning = phrase.englishMeaning || phrase.translation || '';
+                            const speechText = phrase.speechText || nativeScript;
+
+                            const voice = languageContent[currentLanguage].generatedSpeechLocale;
+
+                            const button = document.createElement('button');
+                            button.className = 'play-btn';
+                            button.textContent = '🔊';
+                            button.addEventListener('click', () => speak(speechText, voice));
+
+                            const wordDiv = document.createElement('div');
+                            wordDiv.className = 'phrase-chinese';
+                            wordDiv.textContent = nativeScript;
+
+                            const pronunciationDiv = document.createElement('div');
+                            pronunciationDiv.className = 'pinyin';
+                            pronunciationDiv.textContent = pronunciation;
+
+                            const englishDiv = document.createElement('div');
+                            englishDiv.className = 'english';
+                            englishDiv.textContent = englishMeaning;
+
+                            phraseItem.appendChild(button);
+                            phraseItem.appendChild(wordDiv);
+                            phraseItem.appendChild(pronunciationDiv);
+                            phraseItem.appendChild(englishDiv);
                             outputDiv.appendChild(phraseItem);
                         });
                     } else {
@@ -953,12 +878,14 @@
                     outputDiv.innerHTML = '<p style="color: #c53030; text-align: center;">Failed to get a valid response from the AI. Please try again.</p>';
                 }
             } catch (error) {
-                console.error("An unexpected error occurred:", error);
+                console.error('An unexpected error occurred:', error);
                 outputDiv.innerHTML = `<p style="color: #c53030; text-align: center;">An unexpected error occurred: ${error.message}</p>`;
             } finally {
-                loadingIndicator.style.display = 'none'; // Hide loading indicator
+                loadingIndicator.style.display = 'none';
             }
         });
+
+        renderLanguage(currentLanguage);
     </script>
 </body>
 </html>
