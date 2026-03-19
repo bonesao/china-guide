@@ -141,56 +141,6 @@
             color: #c53030;
             margin-top: 0;
         }
-        .gemini-section {
-            background: #e0f7fa;
-            border: 2px solid #00bcd4;
-            border-radius: 15px;
-            padding: 30px;
-            box-shadow: 0 10px 20px rgba(0,0,0,0.08);
-            margin-top: 40px;
-        }
-        .gemini-section h2 {
-            color: #00796b;
-            border-bottom-color: #00bcd4;
-        }
-        .gemini-section textarea {
-            width: 100%;
-            padding: 12px;
-            border: 1px solid #b2ebf2;
-            border-radius: 8px;
-            font-size: 1em;
-            resize: vertical;
-            min-height: 80px;
-            box-sizing: border-box;
-        }
-        .gemini-section button {
-            background: #00bcd4;
-            color: white;
-            padding: 12px 25px;
-            border: none;
-            border-radius: 8px;
-            font-size: 1.1em;
-            cursor: pointer;
-            width: 100%;
-            transition: background 0.3s ease;
-            margin-top: 15px;
-        }
-        .gemini-section button:hover {
-            background: #0097a7;
-        }
-        .loading-indicator {
-            text-align: center;
-            margin-top: 20px;
-            font-size: 1.1em;
-            color: #00796b;
-            font-weight: bold;
-        }
-        .generated-phrases-grid {
-            margin-top: 20px;
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-            gap: 20px;
-        }
     </style>
 </head>
 <body>
@@ -215,23 +165,6 @@
 
         <h2 id="basicPhrasesHeading"></h2>
         <div class="phrase-grid" id="basicPhrasesGrid"></div>
-
-        <div class="gemini-section">
-            <h2 id="geminiHeading"></h2>
-            <p id="geminiDescription" class="text-gray-600 mb-4"></p>
-
-            <div class="mb-4">
-                <textarea id="situationInput" placeholder=""></textarea>
-            </div>
-            <button id="generatePhrasesButton"></button>
-
-            <div id="loadingIndicator" class="loading-indicator" style="display: none;">
-                Generating phrases... please wait.
-            </div>
-
-            <div id="generatedPhrasesOutput" class="generated-phrases-grid">
-            </div>
-        </div>
 
         <h2 id="tonesSectionHeading"></h2>
         <div class="notes">
@@ -269,11 +202,6 @@
                     '<strong>Rising Tone (˩˥):</strong> Climbs upward — like asking a surprised question.',
                     '<strong>Low Rising Tone (˩˧):</strong> Begins low then lifts gently — smooth and encouraging.'
                 ],
-                geminiHeading: '✨ Get Phrases for Any Situation ✨',
-                geminiDescription: "Describe a situation you might encounter in Laos, and I'll generate useful Lao phrases for you!",
-                geminiPlaceholder: 'e.g., Ordering khao soi in Luang Prabang, renting a scooter, asking for a guesthouse... ',
-                geminiButtonText: 'Generate Phrases',
-                geminiPrompt: situation => `Generate 3 to 5 helpful Lao phrases for a traveler who is "${situation}". Provide Lao script, a simple Latin pronunciation with tone hints, and the English meaning for each phrase. Format the response as a JSON array of objects with the keys 'nativeScript', 'pronunciation', and 'englishMeaning'.`,
                 generatedSpeechLocale: 'lo-LA',
                 essentialCards: [
                     { word: 'ທາງອອກ', pronunciation: 'thāng òk', english: 'Exit', speechText: 'ທາງອອກ' },
@@ -366,11 +294,6 @@
                     '<strong>4th Tone (ˋ):</strong> Sharp falling - like a firm "no!"',
                     '<strong>Neutral Tone:</strong> Light and quick - unstressed'
                 ],
-                geminiHeading: '✨ Get Phrases for Any Situation ✨',
-                geminiDescription: "Describe a situation you might encounter in China, and I'll generate useful Chinese phrases for you!'",
-                geminiPlaceholder: 'e.g., Ordering coffee at a cafe, asking for directions to the train station, checking into a hotel...',
-                geminiButtonText: 'Generate Phrases',
-                geminiPrompt: situation => `Generate 3 to 5 common Chinese phrases for a traveler who is "${situation}". Provide the Chinese characters, Pinyin with tone marks, and the English meaning for each phrase. Format the response as a JSON array of objects with the keys 'nativeScript', 'pronunciation', and 'englishMeaning'.`,
                 generatedSpeechLocale: 'zh-CN',
                 essentialCards: [
                     { word: '出口', pronunciation: 'chū kǒu', english: 'Exit', speechText: '出口' },
@@ -507,10 +430,6 @@
             document.getElementById('basicPhrasesHeading').textContent = content.basicPhrasesHeading;
             document.getElementById('tonesSectionHeading').textContent = content.tonesSectionHeading;
             document.getElementById('notesHeading').textContent = content.notesHeading;
-            document.getElementById('geminiHeading').textContent = content.geminiHeading;
-            document.getElementById('geminiDescription').textContent = content.geminiDescription;
-            document.getElementById('situationInput').placeholder = content.geminiPlaceholder;
-            document.getElementById('generatePhrasesButton').textContent = content.geminiButtonText;
             document.getElementById('tonePracticeMaHeading').textContent = content.tonePracticeMaHeading;
             document.getElementById('tonePracticeShiHeading').textContent = content.tonePracticeShiHeading;
             document.getElementById('tonePracticeBaoHeading').textContent = content.tonePracticeBaoHeading;
@@ -530,8 +449,6 @@
             renderCards('tonePracticeMaGrid', content.tonePracticeMa, { wordClass: 'phrase-chinese', additionalCardClass: 'phrase-card', voiceLocale: content.generatedSpeechLocale });
             renderCards('tonePracticeShiGrid', content.tonePracticeShi, { wordClass: 'phrase-chinese', additionalCardClass: 'phrase-card', voiceLocale: content.generatedSpeechLocale });
             renderCards('tonePracticeBaoGrid', content.tonePracticeBao, { wordClass: 'phrase-chinese', additionalCardClass: 'phrase-card', voiceLocale: content.generatedSpeechLocale });
-
-            document.getElementById('generatedPhrasesOutput').innerHTML = '';
         }
 
         document.getElementById('languageSelect').addEventListener('change', (event) => {
@@ -769,121 +686,6 @@
             speechSynthesis.onvoiceschanged = function() {};
         }
 
-        document.getElementById('generatePhrasesButton').addEventListener('click', async () => {
-            const situation = document.getElementById('situationInput').value.trim();
-            const outputDiv = document.getElementById('generatedPhrasesOutput');
-            const loadingIndicator = document.getElementById('loadingIndicator');
-            const content = languageContent[currentLanguage];
-
-            if (!situation) {
-                outputDiv.innerHTML = '<p style="color: #c53030; text-align: center;">Please describe a situation to generate phrases.</p>';
-                return;
-            }
-
-            loadingIndicator.style.display = 'block';
-            outputDiv.innerHTML = '';
-
-            try {
-                const prompt = content.geminiPrompt(situation);
-                const payload = {
-                    contents: [{ role: 'user', parts: [{ text: prompt }] }],
-                    generationConfig: {
-                        responseMimeType: 'application/json',
-                        responseSchema: {
-                            type: 'ARRAY',
-                            items: {
-                                type: 'OBJECT',
-                                properties: {
-                                    'nativeScript': { type: 'STRING' },
-                                    'pronunciation': { type: 'STRING' },
-                                    'englishMeaning': { type: 'STRING' }
-                                },
-                                required: ['nativeScript', 'pronunciation', 'englishMeaning']
-                            }
-                        }
-                    }
-                };
-
-                const apiKey = 'AIzaSyAN6xQKZY37wPXc4xfe1IlOgNOGh5wCd9g';
-                const apiUrl = `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash:generateContent?key=${apiKey}`;
-
-                const response = await fetch(apiUrl, {
-                    method: 'POST',
-                    headers: { 'Content-Type': 'application/json' },
-                    body: JSON.stringify(payload)
-                });
-
-                if (!response.ok) {
-                    const errorData = await response.json();
-                    console.error('API Error:', errorData);
-                    outputDiv.innerHTML = `<p style="color: #c53030; text-align: center;">Error generating phrases: ${errorData.error?.message || 'Unknown error'}</p>`;
-                    return;
-                }
-
-                const result = await response.json();
-
-                if (result.candidates && result.candidates.length > 0 &&
-                    result.candidates[0].content && result.candidates[0].content.parts &&
-                    result.candidates[0].content.parts.length > 0) {
-
-                    const jsonString = result.candidates[0].content.parts[0].text;
-                    let generatedPhrases = [];
-                    try {
-                        generatedPhrases = JSON.parse(jsonString);
-                    } catch (parseError) {
-                        console.error('Failed to parse JSON from LLM:', parseError);
-                        console.log('Raw LLM response:', jsonString);
-                        outputDiv.innerHTML = '<p style="color: #c53030; text-align: center;">Could not understand the generated phrases. Please try again or refine your request.</p>';
-                        return;
-                    }
-
-                    if (generatedPhrases.length > 0) {
-                        generatedPhrases.forEach(phrase => {
-                            const phraseItem = document.createElement('div');
-                            phraseItem.className = 'card phrase-card';
-                            const nativeScript = phrase.nativeScript || phrase.chinesePhrase || phrase.text || '';
-                            const pronunciation = phrase.pronunciation || phrase.pinyin || phrase.romanization || '';
-                            const englishMeaning = phrase.englishMeaning || phrase.translation || '';
-                            const speechText = phrase.speechText || nativeScript;
-
-                            const voice = languageContent[currentLanguage].generatedSpeechLocale;
-
-                            const button = document.createElement('button');
-                            button.className = 'play-btn';
-                            button.textContent = '🔊';
-                            button.addEventListener('click', () => speak(speechText, voice));
-
-                            const wordDiv = document.createElement('div');
-                            wordDiv.className = 'phrase-chinese';
-                            wordDiv.textContent = nativeScript;
-
-                            const pronunciationDiv = document.createElement('div');
-                            pronunciationDiv.className = 'pinyin';
-                            pronunciationDiv.textContent = pronunciation;
-
-                            const englishDiv = document.createElement('div');
-                            englishDiv.className = 'english';
-                            englishDiv.textContent = englishMeaning;
-
-                            phraseItem.appendChild(button);
-                            phraseItem.appendChild(wordDiv);
-                            phraseItem.appendChild(pronunciationDiv);
-                            phraseItem.appendChild(englishDiv);
-                            outputDiv.appendChild(phraseItem);
-                        });
-                    } else {
-                        outputDiv.innerHTML = '<p style="color: #4a5568; text-align: center;">No phrases were generated for this situation. Please try a different description.</p>';
-                    }
-                } else {
-                    outputDiv.innerHTML = '<p style="color: #c53030; text-align: center;">Failed to get a valid response from the AI. Please try again.</p>';
-                }
-            } catch (error) {
-                console.error('An unexpected error occurred:', error);
-                outputDiv.innerHTML = `<p style="color: #c53030; text-align: center;">An unexpected error occurred: ${error.message}</p>`;
-            } finally {
-                loadingIndicator.style.display = 'none';
-            }
-        });
 
         renderLanguage(currentLanguage);
     </script>
